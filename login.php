@@ -29,7 +29,7 @@ if it's not present, don't show loader */
 	// Wait for window load
 	$(window).load(function() {
 		// Animate loader off screen
-		$(".se-pre-con").fadeOut("slow");;
+		$(".se-pre-con").fadeOut("slow");
 	});
 </script>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
