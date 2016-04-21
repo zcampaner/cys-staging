@@ -131,7 +131,7 @@ $(document).ready(function() {
 <body>
 	<div class="se-pre-con"></div>
 <br/><br/>
-<a href="add.php" id="myButton">Add</a>
+<a href="add.php" id="myButton">Add</a> || <a href="logout.php" id="myButton">LOGOUT</a>
 <br/><br/>
 <?php 
 					$sql="SELECT 
