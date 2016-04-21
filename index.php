@@ -102,7 +102,7 @@ $(document).ready(function() {
 
 </head>
 <br/><br/>
-<a href="add.php" id="myButton">Add</a>
+<a href="add.php" id="myButton">Add</a> || <a href="logout.php" id="myButton">Logout</a>
 <br/><br/>
 <?php 
 					$sql="SELECT 
