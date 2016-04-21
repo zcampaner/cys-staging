@@ -1,51 +1,3 @@
-
-Conversation opened. 1 unread message.
-
-Skip to content
-Using DirectWithHotels Ltd Mail with screen readers
-Zachary Paul Anthony
- 
- 
-More 
-1 of 42
- 
-loading
-Inbox
-	x
-Lauden Ilasin
-	
-Attachments4:33 PM (25 minutes ago)
-		
-to me
-
-Lauden Angus N. Ilasin
-
-Software Engineer Associate
-
-DirectWithHotels Limited
-
-Phone     +632 562 3209
-
-Email       lauden.ilasin@directwithhotels.com
-
-Website    www.directwithhotels.com
-Attachments area
-Insightly Gmail Gadget
-	
-Click here to Reply or Forward
-0 GB (0%) of 15 GB used
-Manage
-Program Policies
-Powered by
-Google
-Last account activity: 24 minutes ago
-Details
-	
-	
-Lauden Ilasin's profile photo
-	Lauden Ilasin
-Show details
-
 <?php
 include("dbconnection.php");
 
@@ -147,4 +99,3 @@ if it's not present, don't show loader */
 
 </body>
 </html>
-
