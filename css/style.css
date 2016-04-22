@@ -1,7 +1,7 @@
 /*Created by Zee*/
 * {padding:0; margin:0;}
 
-body {font-family:Verdana;font-size:75%;color:#222;}
+body {font-family:Verdana;font-size:75%;color:#222;background-color: #24w234;}
 a {font-family:Verdana;text-decoration:none;color:#31531a;}
 a:hover {color:#ca5422;}
 h1,h2,h3,h4 {color:#164c0c;}
@@ -9,6 +9,9 @@ h1,h2,h3,h4 {color:#164c0c;}
 
 #header {background:#272c6b;}
 #header img {margin-left:10px;}
+#logo{
+	text-align: center;
+}
 
 #topmenu {float:right;color:#eee;font-size:90%;text-align:right;padding:6px;}
 #topmenu  a{color:#ddd;text-decoration:underline;font-weight:bold;}
@@ -359,7 +362,7 @@ width: 100%;
 background: #fff;
 border: 1px solid #272c6b;
 padding: 5px 5px 5px 5px;
-
+border-radius: 5px;
 }
 #login_button {
 width: 300px;
@@ -392,9 +395,18 @@ margin-top: 70px;
 width: 100%;
 margin: 0 auto;
 padding: 10px 0;
-background: #272c6b;
-color: #f0f0f0;
+background: white;
+/*color: #f0f0f0;*/
+font-family: Times New Roman;
+color: black;
 padding: 30px 0;
+text-align: center;
+}
+.direct{
+color : #0283C3;
+}
+.hotels{
+color: #F67B20;
 }
 /*Dashboard*/
 .dashboard{
@@ -647,3 +659,4 @@ color: #222;
 {
 	display:block
 }
+
