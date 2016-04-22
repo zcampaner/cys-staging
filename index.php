@@ -78,11 +78,20 @@ $(document).ready(function() {
 <script src="js/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			jQuery(document).ready(function() {
+				
 				oTable = jQuery('#tbl').dataTable({
 					"bJQueryUI": true,
 					"sPaginationType": "full_numbers"
 								} );
-				});		
+				$('#modal').hide();
+    			$("#add").click(function(){
+        			$("#modal").show();
+    			});	
+    			$(".edit").click(function(){
+    				$("#login_name").val();
+        			$("#modal").show();
+    			});			
+								});
 		</script>
 <style>
 #myButton {
@@ -129,9 +138,22 @@ $(document).ready(function() {
 
 </head>
 <body>
+
+<div id="modal">
+
+    <p>Enter the below information if you want to insert:</p>
+    User Name: <input type="text" name="login_name" id="login_name" required/><br />
+    Password: <input type="password" name="password" id="password" required/><br />
+    First Name: <input type="text" name="first_name" id="first_name" required/><br />
+    Last Name: <input type="text" name="last_name" id="last_name" required/><br />
+    Email: <input type="email" name="email" id="email" required/><br />
+    <input type="button" name="frmSubmit" value="Do-It">
+
+</div>
+
 	<div class="se-pre-con"></div>
 <br/><br/>
-<a href="add.php" id="myButton">Add</a> || <a href="logout.php" id="myButton">LOGOUT</a>
+<input type="button" id="add" value="ADD"> || <a href="logout.php" id="myButton">LOGOUT</a>
 <br/><br/>
 <?php 
 					$sql="SELECT 
@@ -165,7 +187,7 @@ $(document).ready(function() {
 							$str.="<td width='10%'>".$row['last_name']."</td>";
 							$str.="<td width='10%'>".$row['email']."</td>";
 							$str.="<td width='10%'>".$sActive."</td>";
-							$str.="<td><center><a href='template_edit.php?login_name=".$row['login_name']."' onclick='return update()'><img src = 'images/edit-icon.png' height='30' width='30' alt = 'edit' title = 'edit'/></a><a href='delete.php?delete_user=".$row['login_name']."' onclick='return bura()' ><img src = 'images/edit_delete.png' height='30' width='30' alt = 'delete' title = 'delete'/></a></center></td></tr>";
+							$str.="<td><center><a class='edit' onclick='return update()'><img src = 'images/edit-icon.png' height='30' width='30' alt = 'edit' title = 'edit'/></a><a href='delete.php?delete_user=".$row['login_name']."' onclick='return bura()' ><img src = 'images/edit_delete.png' height='30' width='30' alt = 'delete' title = 'delete'/></a></center></td></tr>";
 						}//
 						echo $str;
 						echo "</tbody></table></div>";//class='fancybox fancybox.ajax' 
