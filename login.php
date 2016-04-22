@@ -6,11 +6,27 @@ include("dbconnection.php");
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<style type="text/css">
+	/* Paste this css to your style sheet file or under head tag */
+	/* This only works with JavaScript, 
+	if it's not present, don't show loader */
+	.no-js #loader { display: none;  }
+	.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+	.se-pre-con {
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		height: 100%;
+		z-index: 9999;
+		background: url(loading.gif) center no-repeat #fff;
+	}
+	</style>
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<title>Central Yield System</title>
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="css/loading.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	
