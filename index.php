@@ -115,7 +115,8 @@ $(document).ready(function() {
   					.done(function( msg ) {
   						if(msg > 0){
   							alert('OK!');
-  						}
+  							location.reload();
+							}
   						else {
   							alert('FAILED!');
   						}
@@ -133,7 +134,8 @@ $(document).ready(function() {
   						data: params					
   					})
   					.done(function( msg ) {
-  						alert(msg);
+  						alert('New record added');
+  						location.reload();
   					});
     			});	
     			$('.delete').click(function(){
@@ -150,7 +152,6 @@ $(document).ready(function() {
   								.done(function( msg ) {
   									if(msg > 0){
   									alert('Deleted record successfully');
-  									window.location.href("index.php");
   									location.reload();
   									}
   									else {

@@ -20,7 +20,7 @@ if (isset($_POST["login_name"])) {
                 $stmt->bindParam(':email', $_POST['email']);
 
                 $stmt->execute();
-echo $stmt->rowCount();
+				echo $stmt->rowCount();
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }

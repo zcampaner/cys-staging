@@ -14,6 +14,5 @@ include("dbconnection.php");
             $stmt->execute();
 
         echo $stmt->rowCount();
-        header("location:index.php");
 	}
 ?>
