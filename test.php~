@@ -1,0 +1,456 @@
+<?php
+include("dbconnection.php");
+	
+/*	session_start();
+	if (!isset($_SESSION["myusername"]))	
+		header("location:login.php");
+
+	require_once ("dbconnection.php"); 
+	
+	$pnum="";
+	$pfname="";
+	$plname="";
+	$pcontact="";
+	$pemail="";			
+		if(isset($_GET['login_name'])){
+			$ppid = $_GET['login_name'];
+			$sqlLoader="Select from system.users where login_name=?";
+			$resLoader=$db->prepare($sqlLoader);
+			$resLoader->execute(array($ppid));		
+			while($rowLoader = $resLoader->fetch(PDO::FETCH_ASSOC)){
+				$login_name=$rowLoader['login_name'];
+				$password=$rowLoader['password'];
+				$first_name=$rowLoader['first_name'];	
+				$last_name=$rowLoader['last_name'];
+				$email=$rowLoader['email'];
+				$enabled=$rowLoader['enabled'];
+				$terminal=$rowLoader['terminal'];		
+			}
+	}*/
+	 
+    if(isset($_GET['login_name'])){
+
+    $ppid = $_GET['login_name'];
+
+    $sqladd="SELECT* FROM system.users WHERE login_name='$ppid'";
+	$res=$db->prepare($sqladd);
+	$res->execute();
+	$result = $res->fetchALL(PDO::FETCH_ASSOC);	
+	 foreach ($result as $row) {
+		// while($rowadd = $resadd->fetchALL(PDO::FETCH_ASSOC)){
+		$login_name		=$row['login_name'];
+		$first_name 	=$row['first_name'];
+		$last_name 		=$row['last_name'];	
+		$email 			=$row['email'];
+		$password		=$row['password'];
+		$enabled		=$row['enabled'];
+		$terminal		=$row['terminal'];	
+
+	}
+}
+?>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super Simple Modal Popups Demo</title>
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.css" rel="stylesheet" type="text/css">
+<style>
+/* Paste this css to your style sheet file or under head tag */
+/* This only works with JavaScript, 
+if it's not present, don't show loader */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(loading.gif) center no-repeat #fff;
+}
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+<script>
+	//paste this code under head tag or in a seperate js file.
+	// Wait for window load
+	$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+	});
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CYS</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="fancybox/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type="text/javascript" src="fancybox/jquery.fancybox.js?v=2.1.5"></script>
+<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
+<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-buttons.css?v=1.0.5" />
+<script type="text/javascript" src="fancybox/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".fancybox").fancybox();
+});
+</script>	
+    <style type="text/css" title="currentStyle">
+			@import "css/demo_page.css";
+			@import "css/demo_table_jui.css";
+			@import "css/jquery-ui-1.8.4.custom.css";
+		</style>
+<script src="js/jquery.dataTables.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			jQuery(document).ready(function() {
+				
+				oTable = jQuery('#tbl').dataTable({
+					"bJQueryUI": true,
+					"sPaginationType": "full_numbers"
+								} );
+				$('#modal').hide();
+    			$("#add").click(function(){
+        			$("#modal").show();
+    			});	
+    			$(".edit").click(function(){
+    				$("#login_name").val();
+        			$("#modal").show();
+    			});			
+								});
+		</script>
+<style>
+#myButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+	background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#777777;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+#myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+	background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+	background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+	background-color:#dfdfdf;
+}
+#myButton:active {
+	position:relative;
+	top:1px;
+}
+</style>
+
+</head>
+<body>
+
+<div id="modal">
+
+    <p>Enter the below information if you want to insert:</p>
+    User Name: <input type="text" name="login_name" id="login_name" required/><br />
+    Password: <input type="password" name="password" id="password" required/><br />
+    First Name: <input type="text" name="first_name" id="first_name" required/><br />
+    Last Name: <input type="text" name="last_name" id="last_name" required/><br />
+    Email: <input type="email" name="email" id="email" required/><br />
+    <input type="button" name="frmSubmit" value="Do-It">
+
+</div>
+
+	<div class="se-pre-con"></div>
+<br/><br/>
+<input type="button" id="add" value="ADD"> || <a href="logout.php" id="myButton">LOGOUT</a>
+<br/><br/>
+<?php 
+					$sql="SELECT 
+					* FROM system.users";
+					$res=$db->prepare($sql);
+					$res->execute();
+					$result = $res->fetchALL(PDO::FETCH_ASSOC);		
+					$str="<div class='demo_jui'><table cellpadding='0' cellspacing='0' border='0' class='display' id='tbl' class='jtable'>";
+					$str.="<thead>
+								<tr><th>Login Name</th>
+									<th>Password</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
+									<th>Enabled</th>
+									<th>Action</th>
+									</tr>
+							</thead>
+						<tbody>";
+						foreach ($result as $row) {
+							$sStatus = $row['enabled'];
+							if ($sStatus=="1") {
+									$sActive = "Active";
+								}
+								else {
+									$sActive = "Inactive";
+								}
+							$str.="<tr><td><center>".$row['login_name']."</center></td>";
+							$str.="<td width='10%'>".$row['password']."</td>";
+							$str.="<td width='10%'>".$row['first_name']."</td>";
+							$str.="<td width='10%'>".$row['last_name']."</td>";
+							$str.="<td width='10%'>".$row['email']."</td>";
+							$str.="<td width='10%'>".$sActive."</td>";
+							$str.="<td><center><a class='edit' onclick='return update()'><img src = 'images/edit-icon.png' height='30' width='30' alt = 'edit' title = 'edit'/></a><a href='delete.php?delete_user=".$row['login_name']."' onclick='return bura()' ><img src = 'images/edit_delete.png' height='30' width='30' alt = 'delete' title = 'delete'/></a></center></td></tr>";
+						}//
+						echo $str;
+						echo "</tbody></table></div>";//class='fancybox fancybox.ajax' 
+                ?>
+
+
+</body>
+</html>
+<?php
+
+
+if (isset($_POST["frmSubmit"])) {
+
+        if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
+            echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
+            exit;
+        } else {
+
+            try {        
+            	$login_name = $_POST["login_name"];
+            	
+
+                $query = "UPDATE system.users SET password = :password, first_name = :first_name, last_name = :last_name, email = :email WHERE login_name = :login_name";
+
+                $STH = $db->prepare($query); 
+
+                 $STH->execute(array('password' => $_POST['password'], 'first_name' => $_POST['first_name'], 'last_name' => $_POST['last_name'], ':email' => $_POST['email'], ':login_name' => $login_name));
+
+            	
+
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+            echo "<script language='javascript' type='text/javascript'>alert('Successfully Saved!')</script>";
+			echo "<script language='javascript' type='text/javascript'>window.open('index.php','_self')</script>";
+        }
+}
+?>
+<style>
+html {
+  font-family: "roboto", helvetica;
+  position: relative;
+  height: 100%;
+  font-size: 100%;
+  line-height: 1.5;
+  color: #444;
+}
+
+h2 {
+  margin: 1.75em 0 0;
+  font-size: 5vw;
+}
+
+h3 { font-size: 1.3em; }
+
+.v-center {
+  height: 100vh;
+  width: 100%;
+  display: table;
+  position: relative;
+  text-align: center;
+}
+
+.v-center > div {
+  display: table-cell;
+  vertical-align: middle;
+  position: relative;
+  top: -10%;
+}
+
+.btn {
+  font-size: 3vmin;
+  padding: 0.75em 1.5em;
+  background-color: #fff;
+  border: 1px solid #bbb;
+  color: #333;
+  text-decoration: none;
+  display: inline;
+  border-radius: 4px;
+  -webkit-transition: background-color 1s ease;
+  -moz-transition: background-color 1s ease;
+  transition: background-color 1s ease;
+}
+
+.btn:hover {
+  background-color: #ddd;
+  -webkit-transition: background-color 1s ease;
+  -moz-transition: background-color 1s ease;
+  transition: background-color 1s ease;
+}
+
+.btn-small {
+  padding: .75em 1em;
+  font-size: 0.8em;
+}
+
+.modal-box {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  width: 98%;
+  background: white;
+  border-bottom: 1px solid #aaa;
+  border-radius: 4px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-clip: padding-box;
+}
+@media (min-width: 32em) {
+
+.modal-box { width: 70%; }
+}
+
+.modal-box header,
+.modal-box .modal-header {
+  padding: 1.25em 1.5em;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-box header h3,
+.modal-box header h4,
+.modal-box .modal-header h3,
+.modal-box .modal-header h4 { margin: 0; }
+
+.modal-box .modal-body { padding: 2em 1.5em; }
+
+.modal-box footer,
+.modal-box .modal-footer {
+  padding: 1em;
+  border-top: 1px solid #ddd;
+  background: rgba(0, 0, 0, 0.02);
+  text-align: right;
+}
+
+.modal-overlay {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+a.close {
+  line-height: 1;
+  font-size: 1.5em;
+  position: absolute;
+  top: 5%;
+  right: 2%;
+  text-decoration: none;
+  color: #bbb;
+}
+
+a.close:hover {
+  color: #222;
+  -webkit-transition: color 1s ease;
+  -moz-transition: color 1s ease;
+  transition: color 1s ease;
+}
+</style>
+</head>
+
+<body>
+<section class="v-center">
+    <a class="js-open-modal btn" href="#" data-modal-id="popup1"> Pop Up One</a>
+</section>
+<div id="popup1" class="modal-box">
+  <header> <a href="#" class="js-modal-close close">×</a>
+    <h3>Pop Up One</h3>
+  </header>
+  <div class="modal-body">
+   <form method="POST" action="">
+ <p>Enter the below information if you want to insert:</p>
+   User Name: <input type="text" name="login_name" value =".$login_name." required/><br />
+   Password: <input type="password" name="password" value =".$password." required/><br />
+   First Name: <input type="text" name="first_name" value =".$first_name." required/><br />
+   Last Name: <input type="text" name="last_name" value =".$last_name." required/><br />
+   Last Name: <input type="text" name="email" value =".$email." required/><br />
+   <input type="submit" name="frmSubmit" value="Do-It"></form></p>
+  </div>
+  <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
+</div>
+</div>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
+<script>
+$(function(){
+
+var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
+
+	$('a[data-modal-id]').click(function(e) {
+		e.preventDefault();
+    $("body").append(appendthis);
+    $(".modal-overlay").fadeTo(500, 0.7);
+    //$(".js-modalbox").fadeIn(500);
+		var modalBox = $(this).attr('data-modal-id');
+		$('#'+modalBox).fadeIn($(this).data());
+	});  
+  
+  
+$(".js-modal-close, .modal-overlay").click(function() {
+    $(".modal-box, .modal-overlay").fadeOut(500, function() {
+        $(".modal-overlay").remove();
+    });
+ 
+});
+ 
+$(window).resize(function() {
+    $(".modal-box").css({
+        top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
+        left: ($(window).width() - $(".modal-box").outerWidth()) / 2
+    });
+});
+ 
+$(window).resize();
+ 
+});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+</html>

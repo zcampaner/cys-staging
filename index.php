@@ -86,7 +86,7 @@ $(document).ready(function() {
 				$('#modal').hide();
     			$("#add").click(function(){
         			$("#modal").show();
-    			});	
+    			});
     			$(".edit").click(function(){
     				var login_name = { "login_name": $(this).closest('tr').find('td').attr('id') }
             		$.ajax({
@@ -206,20 +206,253 @@ $(document).ready(function() {
 </style>
 
 </head>
+<style>
+html {
+  font-family: "roboto", helvetica;
+  position: relative;
+  height: 100%;
+  font-size: 100%;
+  line-height: 1.5;
+  color: #444;
+}
+
+h2 {
+  margin: 1.75em 0 0;
+  font-size: 5vw;
+}
+
+h3 { font-size: 1.3em; }
+
+.v-center {
+  height: 100vh;
+  width: 100%;
+  display: table;
+  position: relative;
+  text-align: center;
+}
+
+.v-center > div {
+  display: table-cell;
+  vertical-align: middle;
+  position: relative;
+  top: -10%;
+}
+
+.btn {
+  font-size: 3vmin;
+  padding: 0.75em 1.5em;
+  background-color: #fff;
+  border: 1px solid #bbb;
+  color: #333;
+  text-decoration: none;
+  display: inline;
+  border-radius: 4px;
+  -webkit-transition: background-color 1s ease;
+  -moz-transition: background-color 1s ease;
+  transition: background-color 1s ease;
+}
+
+.btn:hover {
+  background-color: #ddd;
+  -webkit-transition: background-color 1s ease;
+  -moz-transition: background-color 1s ease;
+  transition: background-color 1s ease;
+}
+
+.btn-small {
+  padding: .75em 1em;
+  font-size: 0.8em;
+}
+
+.modal-box {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  width: 98%;
+  background: white;
+  border-bottom: 1px solid #aaa;
+  border-radius: 4px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-clip: padding-box;
+}
+@media (min-width: 32em) {
+
+.modal-box { width: 70%; }
+}
+
+.modal-box header,
+.modal-box .modal-header {
+  padding: 1.25em 1.5em;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-box header h3,
+.modal-box header h4,
+.modal-box .modal-header h3,
+.modal-box .modal-header h4 { margin: 0; }
+
+.modal-box .modal-body { padding: 2em 1.5em; }
+
+.modal-box footer,
+.modal-box .modal-footer {
+  padding: 1em;
+  border-top: 1px solid #ddd;
+  background: rgba(0, 0, 0, 0.02);
+  text-align: right;
+}
+
+.modal-overlay {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+a.close {
+  line-height: 1;
+  font-size: 1.5em;
+  position: absolute;
+  top: 5%;
+  right: 2%;
+  text-decoration: none;
+  color: #bbb;
+}
+
+a.close:hover {
+  color: #222;
+  -webkit-transition: color 1s ease;
+  -moz-transition: color 1s ease;
+  transition: color 1s ease;
+}
+</style>
+<?php
+
+
+if (isset($_POST["frmSubmit"])) {
+
+        if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
+            echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
+            exit;
+        } else {
+
+            try {        
+            	$login_name = $_POST["login_name"];
+            	
+
+                $query = "UPDATE system.users SET password = :password, first_name = :first_name, last_name = :last_name, email = :email WHERE login_name = :login_name";
+
+                $STH = $db->prepare($query); 
+
+                 $STH->execute(array('password' => $_POST['password'], 'first_name' => $_POST['first_name'], 'last_name' => $_POST['last_name'], ':email' => $_POST['email'], ':login_name' => $login_name));
+
+            	
+
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+            echo "<script language='javascript' type='text/javascript'>alert('Successfully Saved!')</script>";
+			echo "<script language='javascript' type='text/javascript'>window.open('index.php','_self')</script>";
+        }
+}
+?>
 <body>
+<?php
 
-<div id="modal">
 
+if(isset($_GET['login_name'])){
+	require_once ("dbconnection.php"); 	
+
+    $ppid1 = $_GET['login_name'];
+
+    $sqledit="SELECT* FROM system.users WHERE login_name='$ppid1'";
+	$res1=$db->prepare($sqledit);
+	$res1->execute();
+	$result1 = $res1->fetchALL(PDO::FETCH_ASSOC);	
+	 foreach ($result1 as $row1) {
+		// while($rowadd = $resadd->fetchALL(PDO::FETCH_ASSOC)){
+		$login_name		=$row1['login_name'];
+		$first_name 	=$row1['first_name'];
+		$last_name 		=$row1['last_name'];	
+		$email 			=$row1['email'];
+		$password		=$row1['password'];
+		$enabled		=$row1['enabled'];
+		$terminal		=$row1['terminal'];	
+
+	}
+}
+?>
+<div id="modal" class="modal-box">
+  <header> <a href="#" class="js-modal-close close">×</a>
+    <h3>EDIT</h3>
+  </header>
+  <div class="modal-body">
+ <form method="POST" action="">
     <p>Enter the below information if you want to insert:</p>
-    User Name: <input type="text" name="login_name" id="login_name" required/><br />
+    User Name: <input type="text" name="login_name" id="login_name" value = "<?php echo $login_name; ?>" required/><br />
     Password: <input type="password" name="password" id="password" required/><br />
     First Name: <input type="text" name="first_name" id="first_name" required/><br />
     Last Name: <input type="text" name="last_name" id="last_name" required/><br />
     Email: <input type="email" name="email" id="email" required/><br />
+
     <input type="button" id="add_button" name="frmSubmit" value="Do-It">
     <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
-
+    
+  <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
 </div>
+</div>
+<script>
+$(function(){
+
+var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
+
+	$('a[data-modal-id]').click(function(e) {
+		e.preventDefault();
+    $("body").append(appendthis);
+    $(".modal-overlay").fadeTo(500, 0.7);
+    //$(".js-modalbox").fadeIn(500);
+		var modalBox = $(this).attr('data-modal-id');
+		$('#'+modalBox).fadeIn($(this).data());
+	});  
+  
+  
+$(".js-modal-close, .modal-overlay").click(function() {
+    $(".modal-box, .modal-overlay").fadeOut(500, function() {
+        $(".modal-overlay").remove();
+    });
+ 
+});
+ 
+$(window).resize(function() {
+    $(".modal-box").css({
+        top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
+        left: ($(window).width() - $(".modal-box").outerWidth()) / 2
+    });
+});
+ 
+$(window).resize();
+ 
+});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 
 	<div class="se-pre-con"></div>
 <br/><br/>
