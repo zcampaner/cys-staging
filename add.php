@@ -60,14 +60,14 @@ if (isset($_POST["frmSubmit"])) {
         } else {
 
             try {        
-
+            	$password = md5($_POST['password']);
                 $db = new PDO($dsn, $user, $pass, $opt);
                 $STH = $db->prepare("INSERT INTO system.users (login_name,password,first_name,last_name,email,enabled,internal) VALUES (:login_name,:password,:first_name,:last_name,:email,'Yes','Yes')");
 
                 $STH->bindParam(':login_name', $_POST['login_name']);
                 $STH->bindParam(':first_name', $_POST['first_name']);
                 $STH->bindParam(':last_name', $_POST['last_name']);
-                $STH->bindParam(':password', $_POST['password']);
+                $STH->bindParam(':password', $password);
                 $STH->bindParam(':email', $_POST['email']);
 
                 $STH->execute();
