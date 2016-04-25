@@ -88,10 +88,80 @@ $(document).ready(function() {
         			$("#modal").show();
     			});
     			$(".edit").click(function(){
-    				$("#login_name").val();
+    				var login_name = { "login_name": $(this).closest('tr').find('td').attr('id') }
+            		$.ajax({
+  						method: "POST",
+  						url: "template_edit.php",
+  						data: login_name,
+  						dataType: "json"
+					})
+  					.done(function( msg ) {
+  						console.log(msg[0]);
+            			$("#login_name").val( msg[0].login_name );
+            			$("#first_name").val( msg[0].first_name );
+            			$("#last_name").val( msg[0].last_name );
+            			$("#email").val( msg[0].email );
+  					});
         			$("#modal").show();
-    			});			
-								});
+        			$("#add_button").hide();
+    			});
+    			$('#edit_button').click(function(){
+    				var params = { "login_name": $('#login_name').val(), "password": $('#password').val(), "first_name": $('#first_name').val(), "last_name": $('#last_name').val(), "email": $('#email').val() }
+            		$.ajax({
+  						method: "POST",
+  						url: "edit_file.php",
+  						data: params					
+  					})
+  					.done(function( msg ) {
+  						if(msg > 0){
+  							alert('OK!');
+  							location.reload();
+							}
+  						else {
+  							alert('FAILED!');
+  						}
+  						
+  					});
+    			});
+    			$('#add').click(function(){
+  					$("#edit_button").hide();	
+    			});
+    			$('#add_button').click(function(){
+    				var params = { "login_name": $('#login_name').val(), "password": $('#password').val(), "first_name": $('#first_name').val(), "last_name": $('#last_name').val(), "email": $('#email').val() }
+            		$.ajax({
+  						method: "POST",
+  						url: "add_file.php",
+  						data: params					
+  					})
+  					.done(function( msg ) {
+  						alert('New record added');
+  						location.reload();
+  					});
+    			});	
+    			$('.delete').click(function(){
+
+    				var params = { "login_name": $(this).closest('tr').find('td').attr('id') };
+    				var txt;
+    				var r = confirm("Are you sure you want to delete record?");
+    						if (r == true) {
+        						$.ajax({
+  									method: "POST",
+  									url: "delete_file.php",
+  									data: params					
+  								})
+  								.done(function( msg ) {
+  									if(msg > 0){
+  									alert('Deleted record successfully');
+  									location.reload();
+  									}
+  									else {
+  									alert('Cancel');
+  									}
+  								});
+    						}
+  					
+    			})
+			});	
 		</script>
 <style>
 #myButton {
@@ -330,7 +400,9 @@ if(isset($_GET['login_name'])){
     First Name: <input type="text" name="first_name" id="first_name" required/><br />
     Last Name: <input type="text" name="last_name" id="last_name" required/><br />
     Email: <input type="email" name="email" id="email" required/><br />
-    <input type="button" name="frmSubmit" value="Do-It">
+
+    <input type="button" id="add_button" name="frmSubmit" value="Do-It">
+    <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
     
   <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
 </div>
@@ -413,18 +485,20 @@ $(window).resize();
 								else {
 									$sActive = "Inactive";
 								}
-							$str.="<tr><td><center>".$row['login_name']."</center></td>";
+							$str.="<tr><td id='".$row['login_name']."' value='attr'><center>".$row['login_name']."</center></td>";
 							$str.="<td width='10%'>".$row['password']."</td>";
 							$str.="<td width='10%'>".$row['first_name']."</td>";
 							$str.="<td width='10%'>".$row['last_name']."</td>";
 							$str.="<td width='10%'>".$row['email']."</td>";
 							$str.="<td width='10%'>".$sActive."</td>";
-							$str.="<td><center><a class='edit' onclick='return update()'><img src = 'images/edit-icon.png' height='30' width='30' alt = 'edit' title = 'edit'/></a><a href='delete.php?delete_user=".$row['login_name']."' onclick='return bura()' ><img src = 'images/edit_delete.png' height='30' width='30' alt = 'delete' title = 'delete'/></a></center></td></tr>";
+							$str.="<td><center><a class='edit'><img src = 'images/edit-icon.png' height='30' width='30' id='edit' alt = 'edit' title = 'edit'/></a><a class='delete'><img src = 'images/edit_delete.png' height='30' width='30' alt = 'delete' title = 'delete'/></a></center></td></tr>";
 						}//
 						echo $str;
 						echo "</tbody></table></div>";//class='fancybox fancybox.ajax' 
-                ?>
+?>
 
 
 </body>
 </html>
+
+
