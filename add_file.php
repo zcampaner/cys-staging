@@ -16,10 +16,11 @@ if (isset($_POST["login_name"])) {
                 $stmt->bindParam(':login_name', $_POST['login_name']);
                 $stmt->bindParam(':first_name', $_POST['first_name']);
                 $stmt->bindParam(':last_name', $_POST['last_name']);
-                $stmt->bindParam(':password', $_POST['password']);
+                $stmt->bindParam(':password', md5($_POST['password']));
                 $stmt->bindParam(':email', $_POST['email']);
 
                 $stmt->execute();
+echo $stmt->rowCount();
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
