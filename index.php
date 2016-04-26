@@ -104,6 +104,7 @@ $(document).ready(function() {
   					});
         			$("#modal").show();
         			$("#add_button").hide();
+              $("#ad").hide();
     			});
     			$('#edit_button').click(function(){
     				var params = { "login_name": $('#login_name').val(), "password": $('#password').val(), "first_name": $('#first_name').val(), "last_name": $('#last_name').val(), "email": $('#email').val() }
@@ -124,7 +125,8 @@ $(document).ready(function() {
   					});
     			});
     			$('#add').click(function(){
-  					$("#edit_button").hide();	
+  					$("#edit_button").hide();
+            $("#ed").hide();	
     			});
     			$('#add_button').click(function(){
     				var params = { "login_name": $('#login_name').val(), "password": $('#password').val(), "first_name": $('#first_name').val(), "last_name": $('#last_name').val(), "email": $('#email').val() }
@@ -390,7 +392,8 @@ if(isset($_GET['login_name'])){
 ?>
 <div id="modal" class="modal-box">
   <header> <a href="#" class="js-modal-close close">×</a>
-    <h3>EDIT</h3>
+    <h3 id="ed">EDIT</h3>
+    <h3 id="ad">ADD</h3>
   </header>
   <div class="modal-body">
  <form method="POST" action="">
