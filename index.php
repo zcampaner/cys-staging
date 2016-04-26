@@ -387,14 +387,14 @@ if (isset($_POST["frmSubmit"])) {
 <body>
 
 
-
-    <div id="wrapper">
-
        <?php
 
        include 'sidebar.php';
 
        ?>
+
+    <div id="wrapper">
+
 
         <div id="page-wrapper">
 
