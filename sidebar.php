@@ -141,6 +141,36 @@
                             <li>
                                 <a href="hotel_chains.php">Hotel Chains</a>
                             </li>
+                            <li>
+                                <a href="hotels.php">Hotels</a>
+                            </li>
+                            <li>
+                                <a href="bank_branches.php">Bank Branches</a>
+                            </li>
+                            <li>
+                                <a href="banks.php">Banks</a>
+                            </li>
+                            <li>
+                                <a href="channels.php">Channels</a>
+                            </li>
+                            <li>
+                                <a href="error_codes.php">Error Codes</a>
+                            </li>
+                            <li>
+                                <a href="event_log.php">Event Log</a>
+                            </li>
+                            <li>
+                                <a href="modules.php">Modules</a>
+                            </li>
+                            <li>
+                                <a href="monitoring.php">Monitoring</a>
+                            </li>
+                            <li>
+                                <a href="queue_transactions.php">Queue Transactions</a>
+                            </li>
+                            <li>
+                                <a href="user_hotel_priviledges.php">User Hotel Priviledges</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
