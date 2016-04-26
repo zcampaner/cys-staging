@@ -121,7 +121,7 @@ if it's not present, don't show loader */
   					})
   					.done(function( msg ) {
   						if(msg > 0){
-  							alert('OK!');
+  							alert('Record updated successfully');
   							location.reload();
 							}
   						else {
@@ -172,7 +172,7 @@ if it's not present, don't show loader */
 			});	
 		</script>
 <style>
-#myButton {
+#myButton, #add {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -198,7 +198,7 @@ if it's not present, don't show loader */
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffffff;
 }
-#myButton:hover {
+#myButton:hover, #add:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
 	background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
 	background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
@@ -208,7 +208,7 @@ if it's not present, don't show loader */
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
 	background-color:#dfdfdf;
 }
-#myButton:active {
+#myButton:active, #add:active {
 	position:relative;
 	top:1px;
 }
@@ -275,7 +275,7 @@ h3 { font-size: 1.3em; }
 
 .modal-box {
   display: none;
-  position: absolute;
+  position: center;
   z-index: 1000;
   width: 98%;
   background: white;

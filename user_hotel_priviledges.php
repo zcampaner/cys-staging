@@ -10,19 +10,16 @@ session_start();
 	$plname="";
 	$pcontact="";
 	$pemail="";			
-		if(isset($_GET['login_name'])){
-			$ppid = $_GET['login_name'];
-			$sqlLoader="Select from system.users where login_name=?";
+		if(isset($_GET['chain_code'])){
+			$ppid = $_GET['chain_code'];
+			$sqlLoader="Select from system.hotel_chains where chain_code=?";
 			$resLoader=$db->prepare($sqlLoader);
 			$resLoader->execute(array($ppid));		
 			while($rowLoader = $resLoader->fetch(PDO::FETCH_ASSOC)){
-				$login_name=$rowLoader['login_name'];
-				$password=$rowLoader['password'];
-				$first_name=$rowLoader['first_name'];	
-				$last_name=$rowLoader['last_name'];
-				$email=$rowLoader['email'];
-				$enabled=$rowLoader['enabled'];
-				$terminal=$rowLoader['terminal'];		
+				$chain_code=$rowLoader['chain_code'];
+				$chain=$rowLoader['chain'];	
+				$description=$rowLoader['description'];
+				$enabled=$rowLoader['enabled'];	
 			}
 	} 
 ?>
@@ -79,17 +76,7 @@ if it's not present, don't show loader */
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>CYS</title>
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="fancybox/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src="fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
-<script type="text/javascript" src="fancybox/jquery.fancybox.js?v=2.1.5"></script>
-<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
-<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-buttons.css?v=1.0.5" />
-<script type="text/javascript" src="fancybox/jquery.fancybox-buttons.js?v=1.0.5"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	$(".fancybox").fancybox();
-});
-</script>	
+
     <style type="text/css" title="currentStyle">
 			@import "css/demo_page.css";
 			@import "css/demo_table_jui.css";
@@ -97,37 +84,32 @@ $(document).ready(function() {
 		</style>
 <script src="js/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">
-			jQuery(document).ready(function() {
-				
-				oTable = jQuery('#tbl').dataTable({
-					"bJQueryUI": true,
-					"sPaginationType": "full_numbers"
-								} );
+			$(document).ready(function() {
+
 				$('#modal').hide();
     			$("#add").click(function(){
         			$("#modal").show();
     			});
     			$(".edit").click(function(){
-    				var login_name = { "login_name": $(this).closest('tr').find('td').attr('id') }
+    				var chain_code = { "chain_code": $(this).closest('tr').find('td').attr('id') }
             		$.ajax({
   						method: "POST",
   						url: "template_edit.php",
-  						data: login_name,
+  						data: chain_code,
   						dataType: "json"
 					})
   					.done(function( msg ) {
   						console.log(msg[0]);
-            			$("#login_name").val( msg[0].login_name );
-            			$("#first_name").val( msg[0].first_name );
-            			$("#last_name").val( msg[0].last_name );
-            			$("#email").val( msg[0].email );
+            			$("#chain_code").val( msg[0].chain_code );
+            			$("#chain").val( msg[0].chain );
+            			$("#description").val( msg[0].description );
   					});
         			$("#modal").show();
         			$("#add_button").hide();
               $("#ad").hide();
     			});
     			$('#edit_button').click(function(){
-    				var params = { "login_name": $('#login_name').val(), "password": $('#password').val(), "first_name": $('#first_name').val(), "last_name": $('#last_name').val(), "email": $('#email').val() }
+    				var params = { "chain_code": $('#chain_code').val(), "chain": $('#chain').val(), "description": $('#description').val() }
             		$.ajax({
   						method: "POST",
   						url: "edit_file.php",
@@ -149,7 +131,7 @@ $(document).ready(function() {
             $("#ed").hide();	
     			});
     			$('#add_button').click(function(){
-    				var params = { "login_name": $('#login_name').val(), "password": $('#password').val(), "first_name": $('#first_name').val(), "last_name": $('#last_name').val(), "email": $('#email').val() }
+    				var params = { "chain_code": $('#chain_code').val(), "chain": $('#chain').val(), "description": $('#description').val() }
             		$.ajax({
   						method: "POST",
   						url: "add_file.php",
@@ -162,7 +144,7 @@ $(document).ready(function() {
     			});	
     			$('.delete').click(function(){
 
-    				var params = { "login_name": $(this).closest('tr').find('td').attr('id') };
+    				var params = { "chain_code": $(this).closest('tr').find('td').attr('id') };
     				var txt;
     				var r = confirm("Are you sure you want to delete record?");
     						if (r == true) {
@@ -359,20 +341,20 @@ a.close:hover {
 
 if (isset($_POST["frmSubmit"])) {
 
-        if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
+        if (!$_POST['chain_code'] || !$_POST['chain'] || !$_POST['description']) {
             echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
             exit;
         } else {
 
             try {        
-            	$login_name = $_POST["login_name"];
+            	$chain_code = $_POST["chain_code"];
             	
 
-                $query = "UPDATE system.users SET password = :password, first_name = :first_name, last_name = :last_name, email = :email WHERE login_name = :login_name";
+                $query = "UPDATE system.hotel_chains SET chain = :chain, description = :description WHERE chain_code = :chain_code";
 
                 $STH = $db->prepare($query); 
 
-                 $STH->execute(array('password' => $_POST['password'], 'first_name' => $_POST['first_name'], 'last_name' => $_POST['last_name'], ':email' => $_POST['email'], ':login_name' => $login_name));
+                 $STH->execute(array('chain' => $_POST['chain'], 'description' => $_POST['description'], ':chain_code' => $chain_code));
 
             	
 
@@ -434,24 +416,21 @@ if (isset($_POST["frmSubmit"])) {
                                 <?php
 
 
-					if(isset($_GET['login_name'])){
+					if(isset($_GET['chain_code'])){
 					  require_once ("dbconnection.php");  
 
-					    $ppid1 = $_GET['login_name'];
+					    $ppid1 = $_GET['chain_code'];
 
-					    $sqledit="SELECT* FROM system.users WHERE login_name='$ppid1'";
+					    $sqledit="SELECT* FROM system.hotel_chains WHERE chain_code='$ppid1'";
 					  $res1=$db->prepare($sqledit);
 					  $res1->execute();
 					  $result1 = $res1->fetchALL(PDO::FETCH_ASSOC); 
 					   foreach ($result1 as $row1) {
 					    // while($rowadd = $resadd->fetchALL(PDO::FETCH_ASSOC)){
-					    $login_name   =$row1['login_name'];
-					    $first_name   =$row1['first_name'];
-					    $last_name    =$row1['last_name'];  
-					    $email      =$row1['email'];
-					    $password   =$row1['password'];
-					    $enabled    =$row1['enabled'];
-					    $terminal   =$row1['terminal']; 
+					    $chain_code   =$row1['chain_code'];
+					    $chain        =$row1['chain'];
+					    $description  =$row1['description'];  
+					    $enabled      =$row1['enabled'];
 
 					  }
 					}
@@ -466,11 +445,9 @@ if (isset($_POST["frmSubmit"])) {
 					  <div class="modal-body">
 					 <form method="POST" action="">
 					    <p>Enter the below information if you want to insert:</p>
-					    User Name: <input type="text" name="login_name" id="login_name" value = "<?php echo $login_name; ?>" required/><br />
-					    Password: <input type="password" name="password" id="password" required/><br />
-					    First Name: <input type="text" name="first_name" id="first_name" required/><br />
-					    Last Name: <input type="text" name="last_name" id="last_name" required/><br />
-					    Email: <input type="email" name="email" id="email" required/><br />
+					    Chain Code: <input type="text" name="chain_code" id="chain_code" value = "<?php echo $chain_code; ?>" required/><br />
+					    Chain: <input type="text" name="chain" id="chain" required/><br />
+					    Description: <input type="text" name="description" id="description" required/><br />
 
 					    <input type="button" id="add_button" name="frmSubmit" value="Do-It">
 					    <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
