@@ -5,26 +5,26 @@ session_start();
 
 	require_once ("dbconnection.php"); 
 	
-	$pnum="";
-	$pfname="";
-	$plname="";
-	$pcontact="";
-	$pemail="";			
-		if(isset($_GET['login_name'])){
-			$ppid = $_GET['login_name'];
-			$sqlLoader="Select from system.users where login_name=?";
-			$resLoader=$db->prepare($sqlLoader);
-			$resLoader->execute(array($ppid));		
-			while($rowLoader = $resLoader->fetch(PDO::FETCH_ASSOC)){
-				$login_name=$rowLoader['login_name'];
-				$password=$rowLoader['password'];
-				$first_name=$rowLoader['first_name'];	
-				$last_name=$rowLoader['last_name'];
-				$email=$rowLoader['email'];
-				$enabled=$rowLoader['enabled'];
-				$terminal=$rowLoader['terminal'];		
-			}
-	} 
+	// $pnum="";
+	// $pfname="";
+	// $plname="";
+	// $pcontact="";
+	// $pemail="";			
+	// 	if(isset($_GET['login_name'])){
+	// 		$ppid = $_GET['login_name'];
+	// 		$sqlLoader="Select from system.users where login_name=?";
+	// 		$resLoader=$db->prepare($sqlLoader);
+	// 		$resLoader->execute(array($ppid));		
+	// 		while($rowLoader = $resLoader->fetch(PDO::FETCH_ASSOC)){
+	// 			$login_name=$rowLoader['login_name'];
+	// 			$password=$rowLoader['password'];
+	// 			$first_name=$rowLoader['first_name'];	
+	// 			$last_name=$rowLoader['last_name'];
+	// 			$email=$rowLoader['email'];
+	// 			$enabled=$rowLoader['enabled'];
+	// 			$terminal=$rowLoader['terminal'];		
+	// 		}
+	// 	} 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -108,19 +108,18 @@ $(document).ready(function() {
         			$("#modal").show();
     			});
     			$(".edit").click(function(){
-    				var login_name = { "login_name": $(this).closest('tr').find('td').attr('id') }
+    				var chain_code = { "chain_code": $(this).closest('tr').find('td').attr('id') }
             		$.ajax({
   						method: "POST",
-  						url: "template_edit.php",
-  						data: login_name,
+  						url: "hotel_chains_edit.php",
+  						data: chain_code,
   						dataType: "json"
 					})
   					.done(function( msg ) {
   						console.log(msg[0]);
-            			$("#login_name").val( msg[0].login_name );
-            			$("#first_name").val( msg[0].first_name );
-            			$("#last_name").val( msg[0].last_name );
-            			$("#email").val( msg[0].email );
+            			$("#chain_code").val( msg[0].chain_code );
+            			$("#chain").val( msg[0].chain );
+            			$("#description").val( msg[0].description );
   					});
         			$("#modal").show();
         			$("#add_button").hide();
@@ -431,53 +430,52 @@ if (isset($_POST["frmSubmit"])) {
                                 <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
                             </div>
                             <div class="panel-body">
-                                <?php
+                                
+                                	<?php
 
+									if(isset($_GET['chain_code'])){
 
-					if(isset($_GET['login_name'])){
-					  require_once ("dbconnection.php");  
+									    $ppid1 = $_GET['chain)code'];
 
-					    $ppid1 = $_GET['login_name'];
+									    $sqledit="SELECT* FROM system.hotel_chains WHERE chain_code='$ppid1'";
+									  	$res1=$db->prepare($sqledit);
+									  	$res1->execute();
+									  	$result1 = $res1->fetchALL(PDO::FETCH_ASSOC); 
+									   		foreach ($result1 as $row1) {
+											    // while($rowadd = $resadd->fetchALL(PDO::FETCH_ASSOC)){
+											    $chain_code   	=$row1['chain_code'];
+											    $chain   		=$row1['chain'];
+											    $description    =$row1['description'];  
+											    $enabled      	=$row1['enabled'];
 
-					    $sqledit="SELECT* FROM system.users WHERE login_name='$ppid1'";
-					  $res1=$db->prepare($sqledit);
-					  $res1->execute();
-					  $result1 = $res1->fetchALL(PDO::FETCH_ASSOC); 
-					   foreach ($result1 as $row1) {
-					    // while($rowadd = $resadd->fetchALL(PDO::FETCH_ASSOC)){
-					    $login_name   =$row1['login_name'];
-					    $first_name   =$row1['first_name'];
-					    $last_name    =$row1['last_name'];  
-					    $email      =$row1['email'];
-					    $password   =$row1['password'];
-					    $enabled    =$row1['enabled'];
-					    $terminal   =$row1['terminal']; 
+									  		}
+									}
 
-					  }
-					}
-					?>
+									?>
 
 					<div id="modal" class="modal-box">
 
-					  <header> <a href="#" class="js-modal-close close">×</a>
-					    <h3 id="ed">EDIT</h3>
-					    <h3 id="ad">ADD</h3>
-					  </header>
-					  <div class="modal-body">
-					 <form method="POST" action="">
-					    <p>Enter the below information if you want to insert:</p>
-					    User Name: <input type="text" name="login_name" id="login_name" value = "<?php echo $login_name; ?>" required/><br />
-					    Password: <input type="password" name="password" id="password" required/><br />
-					    First Name: <input type="text" name="first_name" id="first_name" required/><br />
-					    Last Name: <input type="text" name="last_name" id="last_name" required/><br />
-					    Email: <input type="email" name="email" id="email" required/><br />
+					  	<header> <a href="#" class="js-modal-close close">×</a>
+					    	<h3 id="ed">EDIT</h3>
+					    	<h3 id="ad">ADD</h3>
+					  	</header>
+					  	<div class="modal-body">
+					 	
+					 		<form method="POST" action="">
+							    <p>Enter the below information if you want to insert:</p>
+							    
+							    Hotel Chain: <input type="text" name="chain_code" id="chain_code" value = "<?php echo $chain_code; ?>" required/><br />
+							    
+							    Chain: <input type="text" name="chain" id="chain" required/><br />
+							    
+							    Description: <input type="text" name="description" id="description" required/><br />
 
-					    <input type="button" id="add_button" name="frmSubmit" value="Do-It">
-					    <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
-					    
-					  <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
-					</div>
-					</div>
+							    <input type="button" id="add_button" name="frmSubmit" value="Do-It">
+							    <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
+							    
+							  	<footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
+								</div>
+								</div>
 					<script>
 					$(function(){
 
