@@ -79,7 +79,7 @@ if it's not present, don't show loader */
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>CYS</title>
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="fancybox/jquery-1.10.1.min.js"></script>
+<!-- <script type="text/javascript" src="fancybox/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
 <script type="text/javascript" src="fancybox/jquery.fancybox.js?v=2.1.5"></script>
 <link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
@@ -89,7 +89,7 @@ if it's not present, don't show loader */
 $(document).ready(function() {
 	$(".fancybox").fancybox();
 });
-</script>	
+</script>	 -->
     <style type="text/css" title="currentStyle">
 			@import "css/demo_page.css";
 			@import "css/demo_table_jui.css";
@@ -97,12 +97,12 @@ $(document).ready(function() {
 		</style>
 <script src="js/jquery.dataTables.js"></script>
 		<script type="text/javascript" charset="utf-8">
-			jQuery(document).ready(function() {
+			$(document).ready(function() {
 				
-				oTable = jQuery('#tbl').dataTable({
-					"bJQueryUI": true,
-					"sPaginationType": "full_numbers"
-								} );
+				// oTable = jQuery('#tbl').DataTable({
+				// 	"bJQueryUI": true,
+				// 	"sPaginationType": "full_numbers"
+				// 				} );
 				$('#modal').hide();
     			$("#add").click(function(){
         			$("#modal").show();
