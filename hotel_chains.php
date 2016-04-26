@@ -432,141 +432,136 @@ if (isset($_POST["frmSubmit"])) {
                             </div>
                             <div class="panel-body">
                                 <?php
-/*
 
-if(isset($_GET['login_name'])){
-  require_once ("dbconnection.php");  
 
-    $ppid1 = $_GET['login_name'];
+					if(isset($_GET['login_name'])){
+					  require_once ("dbconnection.php");  
 
-    $sqledit="SELECT* FROM system.users WHERE login_name='$ppid1'";
-  $res1=$db->prepare($sqledit);
-  $res1->execute();
-  $result1 = $res1->fetchALL(PDO::FETCH_ASSOC); 
-   foreach ($result1 as $row1) {
-    // while($rowadd = $resadd->fetchALL(PDO::FETCH_ASSOC)){
-    $login_name   =$row1['login_name'];
-    $first_name   =$row1['first_name'];
-    $last_name    =$row1['last_name'];  
-    $email      =$row1['email'];
-    $password   =$row1['password'];
-    $enabled    =$row1['enabled'];
-    $terminal   =$row1['terminal']; 
+					    $ppid1 = $_GET['login_name'];
 
-  }
-}
-?>
+					    $sqledit="SELECT* FROM system.users WHERE login_name='$ppid1'";
+					  $res1=$db->prepare($sqledit);
+					  $res1->execute();
+					  $result1 = $res1->fetchALL(PDO::FETCH_ASSOC); 
+					   foreach ($result1 as $row1) {
+					    // while($rowadd = $resadd->fetchALL(PDO::FETCH_ASSOC)){
+					    $login_name   =$row1['login_name'];
+					    $first_name   =$row1['first_name'];
+					    $last_name    =$row1['last_name'];  
+					    $email      =$row1['email'];
+					    $password   =$row1['password'];
+					    $enabled    =$row1['enabled'];
+					    $terminal   =$row1['terminal']; 
 
-<div id="modal" class="modal-box">
+					  }
+					}
+					?>
 
-  <header> <a href="#" class="js-modal-close close">×</a>
-    <h3 id="ed">EDIT</h3>
-    <h3 id="ad">ADD</h3>
-  </header>
-  <div class="modal-body">
- <form method="POST" action="">
-    <p>Enter the below information if you want to insert:</p>
-    User Name: <input type="text" name="login_name" id="login_name" value = "<?php echo $login_name; ?>" required/><br />
-    Password: <input type="password" name="password" id="password" required/><br />
-    First Name: <input type="text" name="first_name" id="first_name" required/><br />
-    Last Name: <input type="text" name="last_name" id="last_name" required/><br />
-    Email: <input type="email" name="email" id="email" required/><br />
+					<div id="modal" class="modal-box">
 
-    <input type="button" id="add_button" name="frmSubmit" value="Do-It">
-    <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
-    
-  <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
-</div>
-</div>
-<script>
-$(function(){
+					  <header> <a href="#" class="js-modal-close close">×</a>
+					    <h3 id="ed">EDIT</h3>
+					    <h3 id="ad">ADD</h3>
+					  </header>
+					  <div class="modal-body">
+					 <form method="POST" action="">
+					    <p>Enter the below information if you want to insert:</p>
+					    User Name: <input type="text" name="login_name" id="login_name" value = "<?php echo $login_name; ?>" required/><br />
+					    Password: <input type="password" name="password" id="password" required/><br />
+					    First Name: <input type="text" name="first_name" id="first_name" required/><br />
+					    Last Name: <input type="text" name="last_name" id="last_name" required/><br />
+					    Email: <input type="email" name="email" id="email" required/><br />
 
-var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
+					    <input type="button" id="add_button" name="frmSubmit" value="Do-It">
+					    <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
+					    
+					  <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
+					</div>
+					</div>
+					<script>
+					$(function(){
 
-  $('a[data-modal-id]').click(function(e) {
-    e.preventDefault();
-    $("body").append(appendthis);
-    $(".modal-overlay").fadeTo(500, 0.7);
-    //$(".js-modalbox").fadeIn(500);
-    var modalBox = $(this).attr('data-modal-id');
-    $('#'+modalBox).fadeIn($(this).data());
-  });  
-  
-  
-$(".js-modal-close, .modal-overlay").click(function() {
-    $(".modal-box, .modal-overlay").fadeOut(500, function() {
-        $(".modal-overlay").remove();
-    });
- 
-});
- 
-$(window).resize(function() {
-    $(".modal-box").css({
-        top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
-        left: ($(window).width() - $(".modal-box").outerWidth()) / 2
-    });
-});
- 
-$(window).resize();
- 
-});
-</script>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
+					var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+					  $('a[data-modal-id]').click(function(e) {
+					    e.preventDefault();
+					    $("body").append(appendthis);
+					    $(".modal-overlay").fadeTo(500, 0.7);
+					    //$(".js-modalbox").fadeIn(500);
+					    var modalBox = $(this).attr('data-modal-id');
+					    $('#'+modalBox).fadeIn($(this).data());
+					  });  
+					  
+					  
+					$(".js-modal-close, .modal-overlay").click(function() {
+					    $(".modal-box, .modal-overlay").fadeOut(500, function() {
+					        $(".modal-overlay").remove();
+					    });
+					 
+					});
+					 
+					$(window).resize(function() {
+					    $(".modal-box").css({
+					        top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
+					        left: ($(window).width() - $(".modal-box").outerWidth()) / 2
+					    });
+					});
+					 
+					$(window).resize();
+					 
+					});
+					</script>
+					<script type="text/javascript">
+					  var _gaq = _gaq || [];
+					  _gaq.push(['_setAccount', 'UA-36251023-1']);
+					  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+					  _gaq.push(['_trackPageview']);
 
-</script>
+					  (function() {
+					    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+					    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+					  })();
 
-  <div class="se-pre-con"></div>
-<br/><br/>
-<input type="button" id="add" value="ADD"> || <a href="logout.php" id="myButton">LOGOUT</a>
-<br/><br/> 
-<?php
-        $sql="SELECT 
-          * FROM system.users";
-          $res=$db->prepare($sql);
-          $res->execute();
-          $result = $res->fetchALL(PDO::FETCH_ASSOC);   
-          $str="<div class='demo_jui'><table cellpadding='0' cellspacing='0' border='0' class='display' id='tbl' class='jtable'>";
-          $str.="<thead>
-                <tr><th>Login Name</th>
-                  <th>Password</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Enabled</th>
-                  <th>Action</th>
-                  </tr>
-              </thead>
-            <tbody>";
-            foreach ($result as $row) {
-              $sStatus = $row['enabled'];
-              if ($sStatus=="1") {
-                  $sActive = "Active";
-                }
-                else {
-                  $sActive = "Inactive";
-                }
-              $str.="<tr><td id='".$row['login_name']."' value='attr'><center>".$row['login_name']."</center></td>";
-              $str.="<td width='10%'>".$row['password']."</td>";
-              $str.="<td width='10%'>".$row['first_name']."</td>";
-              $str.="<td width='10%'>".$row['last_name']."</td>";
-              $str.="<td width='10%'>".$row['email']."</td>";
-              $str.="<td width='10%'>".$sActive."</td>";
-              $str.="<td><center><a class='edit'><img src = 'images/edit-icon.png' height='30' width='30' id='edit' alt = 'edit' title = 'edit'/></a><a class='delete'><img src = 'images/edit_delete.png' height='30' width='30' alt = 'delete' title = 'delete'/></a></center></td></tr>";
-            }
-            echo $str;
-            echo "</tbody></table></div>";//class='fancybox fancybox.ajax' 
-*/
-?>
+					</script>
+
+					  <div class="se-pre-con"></div>
+					<br/><br/>
+					<input type="button" id="add" value="ADD"> || <a href="logout.php" id="myButton">LOGOUT</a>
+					<br/><br/> 
+					<?php
+					        $sql="SELECT 
+					          * FROM system.hotel_chains";
+					          $res=$db->prepare($sql);
+					          $res->execute();
+					          $result = $res->fetchALL(PDO::FETCH_ASSOC);   
+					          $str="<div class='demo_jui'><table cellpadding='0' cellspacing='0' border='0' class='display' id='tbl' class='jtable'>";
+					          $str.="<thead>
+					                <tr><th>Chain Code</th>
+					                  <th>Chain</th>
+					                  <th>Description</th>
+					                  <th>Enabled</th>
+					                  </tr>
+					              </thead>
+					            <tbody>";
+					            foreach ($result as $row) {
+					              $sStatus = $row['enabled'];
+					              if ($sStatus=="1") {
+					                  $sActive = "Active";
+					                }
+					                else {
+					                  $sActive = "Inactive";
+					                }
+					              $str.="<tr><td id='".$row['chain_code']."' value='attr'><center>".$row['chain_code']."</center></td>";
+					              $str.="<td width='10%'>".$row['chain']."</td>";
+					              $str.="<td width='10%'>".$row['description']."</td>";
+					              $str.="<td width='10%'>".$sActive."</td>";
+					              $str.="<td><center><a class='edit'><img src = 'images/edit-icon.png' height='30' width='30' id='edit' alt = 'edit' title = 'edit'/></a><a class='delete'><img src = 'images/edit_delete.png' height='30' width='30' alt = 'delete' title = 'delete'/></a></center></td></tr>";
+					            }
+					            echo $str;
+					            echo "</tbody></table></div>";//class='fancybox fancybox.ajax' 
+
+							?>
                             </div>
                         </div>
                     </div>
