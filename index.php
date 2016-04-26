@@ -35,7 +35,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Dashboard - Central Yield System Database</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap.min.css" rel="stylesheet">
