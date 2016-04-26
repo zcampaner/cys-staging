@@ -79,17 +79,7 @@ if it's not present, don't show loader */
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>CYS</title>
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="fancybox/jquery-1.10.1.min.js"></script>
-<script type="text/javascript" src="fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
-<script type="text/javascript" src="fancybox/jquery.fancybox.js?v=2.1.5"></script>
-<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox.css?v=2.1.5" media="screen" />
-<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-buttons.css?v=1.0.5" />
-<script type="text/javascript" src="fancybox/jquery.fancybox-buttons.js?v=1.0.5"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	$(".fancybox").fancybox();
-});
-</script>	 -->
+
     <style type="text/css" title="currentStyle">
 			@import "css/demo_page.css";
 			@import "css/demo_table_jui.css";
@@ -99,10 +89,6 @@ $(document).ready(function() {
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
 				
-				// oTable = jQuery('#tbl').DataTable({
-				// 	"bJQueryUI": true,
-				// 	"sPaginationType": "full_numbers"
-				// 				} );
 				$('#modal').hide();
     			$("#add").click(function(){
         			$("#modal").show();
