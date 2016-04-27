@@ -19,7 +19,7 @@ $(document).ready(function() {
 				.done(function( msg ) {
 					console.log(msg[0]);
 					$("#hotel_code").val( msg[0].hotel_code );
-					$("#hotel").val( msg[0].hotels );
+					$("#hotel").val( msg[0].hotel);
 					$("#status").val( msg[0].status );
 					$("#chain_code").val( msg[0].chain_code);
 				});

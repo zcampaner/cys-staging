@@ -30,7 +30,7 @@ session_start();
   <meta name="author" content="">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-  <title>Hotels - Central Yield System Database</title>
+  <?php include("title.php"); ?>
 
   <!-- Bootstrap Core CSS -->
   <link href="bootstrap.min.css" rel="stylesheet">

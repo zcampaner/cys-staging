@@ -121,13 +121,13 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> System CYS <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="users.php">Users</a>
+                                <a href="users.php?sidebar=users">Users</a>
                             </li>
                             <li>
                                 <a href="hotel_chains.php">Hotel Chains</a>
                             </li>
                             <li>
-                                <a href="hotels.php">Hotels</a>
+                                <a href="hotels.php?sidebar=hotels">Hotels</a>
                             </li>
                             <li>
                                 <a href="bank_branches.php">Bank Branches</a>
