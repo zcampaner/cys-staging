@@ -88,7 +88,9 @@ if it's not present, don't show loader */
 
                 $('#modal').hide();
                 $("#add").click(function(){
-                    $("#modal").show();
+                    $('#modal').show();
+                    $("#edit_button").hide();
+                    $("#ed").hide();
                 });
                 $(".edit").click(function(){
                     var chain_code = { "chain_code": $(this).closest('tr').find('td').attr('id') }
@@ -117,7 +119,7 @@ if it's not present, don't show loader */
                     })
                     .done(function( msg ) {
                         if(msg > 0){
-                            alert('OK!');
+                            alert('Record updated successfully');
                             location.reload();
                             }
                         else {
@@ -125,10 +127,6 @@ if it's not present, don't show loader */
                         }
                         
                     });
-                });
-                $('#add').click(function(){
-                    $("#edit_button").hide();
-            $("#ed").hide();    
                 });
                 $('#add_button').click(function(){
                     var params = { "chain_code": $('#chain_code').val(), "chain": $('#chain').val(), "description": $('#description').val() }
@@ -168,45 +166,45 @@ if it's not present, don't show loader */
             }); 
         </script>
 <style>
-#myButton {
-    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-    box-shadow:inset 0px 1px 0px 0px #ffffff;
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
-    background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
-    background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
-    background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
-    background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
-    background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
-    background-color:#ededed;
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
-    border-radius:6px;
-    border:1px solid #dcdcdc;
-    display:inline-block;
-    cursor:pointer;
-    color:#777777;
-    font-family:arial;
-    font-size:15px;
-    font-weight:bold;
-    padding:6px 24px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #ffffff;
+#myButton, #add {
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+  background:-moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+  background:-webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+  background:-o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+  background:-ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+  background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+  background-color:#ededed;
+  -moz-border-radius:6px;
+  -webkit-border-radius:6px;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  cursor:pointer;
+  color:#777777;
+  font-family:arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #ffffff;
 }
-#myButton:hover {
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
-    background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
-    background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
-    background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
-    background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
-    background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
-    background-color:#dfdfdf;
+#myButton:hover, #add:hover {
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+  background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+  background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+  background:-o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+  background:-ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+  background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+  background-color:#dfdfdf;
 }
-#myButton:active {
-    position:relative;
-    top:1px;
+#myButton:active, #add:active {
+  position:relative;
+  top:1px;
 }
 </style>
 
@@ -271,7 +269,7 @@ h3 { font-size: 1.3em; }
 
 .modal-box {
   display: none;
-  position: absolute;
+  position: center;
   z-index: 1000;
   width: 98%;
   background: white;
@@ -438,7 +436,7 @@ if (isset($_POST["frmSubmit"])) {
 
                     <div id="modal" class="modal-box">
 
-                      <header> <a href="#" class="js-modal-close close">×</a>
+                      <header> <a href="hotel_chains.php" class="js-modal-close close">×</a>
                         <h3 id="ed">EDIT</h3>
                         <h3 id="ad">ADD</h3>
                       </header>
@@ -452,7 +450,7 @@ if (isset($_POST["frmSubmit"])) {
                         <input type="button" id="add_button" name="frmSubmit" value="Do-It">
                         <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
                         
-                      <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
+                      <footer> <a href="hotel_chains.php" class="btn btn-small js-modal-close">Close</a> </footer>
                     </div>
                     </div>
                     <script>
