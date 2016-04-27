@@ -6,6 +6,8 @@
     $stmt->bindParam(':login_name', $_POST['login_name']);
     $stmt->execute();
 
+	echo $stmt->rowCount();
+
 	$chain_code=$_POST['chain_code'];
 	$sql = "DELETE FROM system.hotel_chains WHERE chain_code =  :chain_code";
 	$stmt = $db->prepare($sql);

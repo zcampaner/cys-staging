@@ -91,7 +91,9 @@ if it's not present, don't show loader */
 				
 				$('#modal').hide();
     			$("#add").click(function(){
-        			$("#modal").show();
+              $('#modal').show();
+              $("#edit_button").hide();
+              $("#ed").hide();
     			});
     			$(".edit").click(function(){
     				var login_name = { "login_name": $(this).closest('tr').find('td').attr('id') }
@@ -130,45 +132,41 @@ if it's not present, don't show loader */
   						
   					});
     			});
-    			$('#add').click(function(){
-  					$("#edit_button").hide();
-            $("#ed").hide();	
-    			});
     			$('#add_button').click(function(){
     				var params = { "login_name": $('#login_name').val(), "password": $('#password').val(), "first_name": $('#first_name').val(), "last_name": $('#last_name').val(), "email": $('#email').val() }
             		$.ajax({
-  						method: "POST",
-  						url: "add_file.php",
-  						data: params					
+  						    method: "POST",
+  						    url: "add_file.php",
+  						    data: params					
   					})
   					.done(function( msg ) {
   						alert('New record added');
   						location.reload();
   					});
     			});	
-    			$('.delete').click(function(){
+          $('.delete').click(function(){
 
-    				var params = { "login_name": $(this).closest('tr').find('td').attr('id') };
-    				var txt;
-    				var r = confirm("Are you sure you want to delete record?");
-    						if (r == true) {
-        						$.ajax({
-  									method: "POST",
-  									url: "delete_file.php",
-  									data: params					
-  								})
-  								.done(function( msg ) {
-  									if(msg > 0){
-  									alert('Deleted record successfully');
-  									location.reload();
-  									}
-  									else {
-  									alert('Cancel');
-  									}
-  								});
-    						}
-  					
-    			})
+            var params = { "login_name": $(this).closest('tr').find('td').attr('id') };
+            var txt;
+            var r = confirm("Are you sure you want to delete record?");
+                if (r == true) {
+                    $.ajax({
+                    method: "POST",
+                    url: "delete_file.php",
+                    data: params          
+                  })
+                  .done(function( msg ) {
+                    if(msg > 0){
+                    alert('Deleted record successfully');
+                    location.reload();
+                    }
+                    else {
+                    alert('Cancel');
+                    }
+                  });
+                }
+            
+          })
 			});	
 		</script>
 <style>
@@ -445,7 +443,7 @@ if (isset($_POST["frmSubmit"])) {
 
                                   <div id="modal" class="modal-box">
 
-                                    <header> <a href="#" class="js-modal-close close">×</a>
+                                    <header> <a href="users.php" class="js-modal-close close">×</a>
                                       <h3 id="ed">EDIT</h3>
                                       <h3 id="ad">ADD</h3>
                                     </header>
@@ -461,7 +459,7 @@ if (isset($_POST["frmSubmit"])) {
                                       <input type="button" id="add_button" name="frmSubmit" value="Do-It">
                                       <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
                                       
-                                    <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
+                                    <footer> <a href="users.php" class="btn btn-small js-modal-close">Close</a> </footer>
                                   </div>
                                   </div>
                                   <script>

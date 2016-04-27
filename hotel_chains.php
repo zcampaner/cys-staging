@@ -89,6 +89,8 @@ if it's not present, don't show loader */
 				$('#modal').hide();
     			$("#add").click(function(){
         			$("#modal").show();
+              		$("#edit_button").hide();
+              		$("#ed").hide();
     			});
     			$(".edit").click(function(){
     				var chain_code = { "chain_code": $(this).closest('tr').find('td').attr('id') }
@@ -106,7 +108,7 @@ if it's not present, don't show loader */
   					});
         			$("#modal").show();
         			$("#add_button").hide();
-              $("#ad").hide();
+              		$("#ad").hide();
     			});
     			$('#edit_button').click(function(){
     				var params = { "chain_code": $('#chain_code').val(), "chain": $('#chain').val(), "description": $('#description').val() }
@@ -117,7 +119,7 @@ if it's not present, don't show loader */
   					})
   					.done(function( msg ) {
   						if(msg > 0){
-  							alert('OK!');
+  							alert('Record updated successfully');
   							location.reload();
 							}
   						else {
@@ -125,10 +127,6 @@ if it's not present, don't show loader */
   						}
   						
   					});
-    			});
-    			$('#add').click(function(){
-  					$("#edit_button").hide();
-            $("#ed").hide();	
     			});
     			$('#add_button').click(function(){
     				var params = { "chain_code": $('#chain_code').val(), "chain": $('#chain').val(), "description": $('#description').val() }
@@ -168,7 +166,7 @@ if it's not present, don't show loader */
 			});	
 		</script>
 <style>
-#myButton {
+#myButton, #add {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -194,7 +192,7 @@ if it's not present, don't show loader */
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffffff;
 }
-#myButton:hover {
+#myButton:hover, #add:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
 	background:-moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
 	background:-webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
@@ -204,7 +202,7 @@ if it's not present, don't show loader */
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
 	background-color:#dfdfdf;
 }
-#myButton:active {
+#myButton:active, #add:active {
 	position:relative;
 	top:1px;
 }
@@ -271,7 +269,7 @@ h3 { font-size: 1.3em; }
 
 .modal-box {
   display: none;
-  position: absolute;
+  position: center;
   z-index: 1000;
   width: 98%;
   background: white;
@@ -438,7 +436,7 @@ if (isset($_POST["frmSubmit"])) {
 
 					<div id="modal" class="modal-box">
 
-					  <header> <a href="#" class="js-modal-close close">×</a>
+					  <header> <a href="hotel_chains.php" class="js-modal-close close">×</a>
 					    <h3 id="ed">EDIT</h3>
 					    <h3 id="ad">ADD</h3>
 					  </header>
@@ -452,7 +450,7 @@ if (isset($_POST["frmSubmit"])) {
 					    <input type="button" id="add_button" name="frmSubmit" value="Do-It">
 					    <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
 					    
-					  <footer> <a href="#" class="btn btn-small js-modal-close">Close</a> </footer>
+					  <footer> <a href="hotel_chains.php" class="btn btn-small js-modal-close">Close</a> </footer>
 					</div>
 					</div>
 					<script>
