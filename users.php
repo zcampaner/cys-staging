@@ -1,15 +1,11 @@
 <?php 
+
 session_start();
 	if (!isset($_SESSION["myusername"]))	
 		header("location:login.php");
 
 	require_once ("dbconnection.php"); 
 	
-	$pnum="";
-	$pfname="";
-	$plname="";
-	$pcontact="";
-	$pemail="";			
 		if(isset($_GET['login_name'])){
 			$ppid = $_GET['login_name'];
 			$sqlLoader="Select from system.users where login_name=?";
@@ -25,6 +21,7 @@ session_start();
 				$terminal=$rowLoader['terminal'];		
 			}
 	} 
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -67,45 +64,40 @@ session_start();
 
 <?php
 
-
 if (isset($_POST["frmSubmit"])) {
 
 		if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
 			echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
 			exit;
-		} else {
+		} 
 
-			try {        
+    else {
+
+			try {
+
 				$login_name = $_POST["login_name"];
 				
-
 				$query = "UPDATE system.users SET password = :password, first_name = :first_name, last_name = :last_name, email = :email WHERE login_name = :login_name";
 
 				$STH = $db->prepare($query); 
 
-				 $STH->execute(array('password' => $_POST['password'], 'first_name' => $_POST['first_name'], 'last_name' => $_POST['last_name'], ':email' => $_POST['email'], ':login_name' => $login_name));
+				$STH->execute(array('password' => $_POST['password'], 'first_name' => $_POST['first_name'], 'last_name' => $_POST['last_name'], ':email' => $_POST['email'], ':login_name' => $login_name));
 
-				
-
-			} catch (PDOException $e) {
-				echo $e->getMessage();
-			}
-			echo "<script language='javascript' type='text/javascript'>alert('Successfully Saved!')</script>";
-			echo "<script language='javascript' type='text/javascript'>window.open('index.php','_self')</script>";
+			} 
+        catch (PDOException $e) {
+				  echo $e->getMessage();
+			  }
+			     echo "<script language='javascript' type='text/javascript'>alert('Successfully Saved!')</script>";
+			     echo "<script language='javascript' type='text/javascript'>window.open('index.php','_self')</script>";
 		}
 }
+
 ?>
 <body>
 
-
-
 	<div id="wrapper">
 
-		<?php
-
-		  include 'sidebar.php';
-
-		?>
+		<?php include 'sidebar.php'; ?>
 
 		<div id="page-wrapper">
 
@@ -142,54 +134,58 @@ if (isset($_POST["frmSubmit"])) {
 								<h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
 							</div>
 							<div class="panel-body">
-								<?php
-
+								
+                <?php
 
 								  if(isset($_GET['login_name'])){
-									require_once ("dbconnection.php");  
+									 require_once ("dbconnection.php");  
 
 									  $ppid1 = $_GET['login_name'];
 
 									  $sqledit="SELECT* FROM system.users WHERE login_name='$ppid1'";
-									$res1=$db->prepare($sqledit);
-									$res1->execute();
-									$result1 = $res1->fetchALL(PDO::FETCH_ASSOC); 
+									   $res1=$db->prepare($sqledit);
+									   $res1->execute();
+									   $result1 = $res1->fetchALL(PDO::FETCH_ASSOC); 
 									 foreach ($result1 as $row1) {
 									  // while($rowadd = $resadd->fetchALL(PDO::FETCH_ASSOC)){
 									  $login_name   =$row1['login_name'];
 									  $first_name   =$row1['first_name'];
 									  $last_name    =$row1['last_name'];  
-									  $email      =$row1['email'];
-									  $password   =$row1['password'];
-									  $enabled    =$row1['enabled'];
-									  $terminal   =$row1['terminal']; 
+									  $email        =$row1['email'];
+									  $password     =$row1['password'];
+									  $enabled      =$row1['enabled'];
+									  $terminal     =$row1['terminal']; 
 
-									}
+									 }
 								  }
-								  ?>
 
-								  <div id="modal" class="modal-box">
+							  ?>
+
+								<div id="modal" class="modal-box">
 
 									<header> <a href="users.php" class="js-modal-close close">×</a>
 									  <h3 id="ed">EDIT</h3>
 									  <h3 id="ad">ADD</h3>
 									</header>
-									<div class="modal-body">
-								   <form method="POST" action="">
-									  <p>Enter the below information if you want to insert:</p>
-									  User Name: <input type="text" name="login_name" id="login_name" value = "<?php echo $login_name; ?>" required/><br />
-									  Password: <input type="password" name="password" id="password" required/><br />
-									  First Name: <input type="text" name="first_name" id="first_name" required/><br />
-									  Last Name: <input type="text" name="last_name" id="last_name" required/><br />
-									  Email: <input type="email" name="email" id="email" required/><br />
 
-									  <input type="button" id="add_button" name="frmSubmit" value="Do-It">
-									  <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
+									<div class="modal-body">
+								    <form method="POST" action="">
+									     <p>Enter the below information if you want to insert:</p>
+									     User Name: <input type="text" name="login_name" id="login_name" value = "<?php echo $login_name; ?>" required/><br />
+									     Password: <input type="password" name="password" id="password" required/><br />
+									     First Name: <input type="text" name="first_name" id="first_name" required/><br />
+									     Last Name: <input type="text" name="last_name" id="last_name" required/><br />
+									     Email: <input type="email" name="email" id="email" required/><br />
+
+									     <input type="button" id="add_button" name="frmSubmit" value="Do-It">
+									     <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
 									  
-									<footer> <a href="users.php" class="btn btn-small js-modal-close">Close</a> </footer>
+									     <footer> <a href="users.php" class="btn btn-small js-modal-close">Close</a> </footer>
+                   </form>
 								  </div>
-								  </div>
-								  <script>
+								</div>
+
+								<script>
 								  $(function(){
 
 								  var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
@@ -221,8 +217,9 @@ if (isset($_POST["frmSubmit"])) {
 								  $(window).resize();
 								   
 								  });
-								  </script>
-								  <script type="text/javascript">
+								</script>
+
+								<script type="text/javascript">
 									var _gaq = _gaq || [];
 									_gaq.push(['_setAccount', 'UA-36251023-1']);
 									_gaq.push(['_setDomainName', 'jqueryscript.net']);
@@ -234,13 +231,15 @@ if (isset($_POST["frmSubmit"])) {
 									  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 									})();
 
-								  </script>
+								</script>
 
 									<div class="se-pre-con"></div>
 								  <br/><br/>
 								  <input type="button" id="add" value="ADD"> || <a href="logout.php" id="myButton">LOGOUT</a>
-								  <br/><br/> 
+								  <br/><br/>
+
 								  <?php
+
 										  $sql="SELECT 
 											* FROM system.users";
 											$res=$db->prepare($sql);
@@ -277,7 +276,8 @@ if (isset($_POST["frmSubmit"])) {
 											  echo $str;
 											  echo "</tbody></table></div>";//class='fancybox fancybox.ajax' 
 
-?>
+                  ?>
+
 							</div>
 						</div>
 					</div>
