@@ -1,7 +1,7 @@
 <?php
 include("dbconnection.php");
 
-    if(isset($_POST['login_name'])){
+if(isset($_POST['login_name'])){
 
     $ppid = $_POST['login_name'];
 
@@ -13,7 +13,7 @@ include("dbconnection.php");
     echo json_encode($result);
 }
 
-    if(isset($_POST['chain_code'])){
+if(isset($_POST['chain_code'])){
 
     $ppid = $_POST['chain_code'];
 
@@ -23,5 +23,16 @@ include("dbconnection.php");
 	$result = $res->fetchALL(PDO::FETCH_ASSOC);	
 
 	echo json_encode($result);
+}
+if(isset($_POST['hotel_code'])){
+
+    $ppid = $_POST['hotel_code'];
+
+    $sqladd="SELECT hotel_code,hotel,status,chain_code FROM system.hotels WHERE hotel_code='$ppid' limit 1";
+    $res=$db->prepare($sqladd);
+    $res->execute();
+    $result = $res->fetchALL(PDO::FETCH_ASSOC); 
+
+    echo json_encode($result);
 }
 ?>
