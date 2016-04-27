@@ -7,20 +7,52 @@ session_start();
 	require_once ("dbconnection.php"); 
 	
 		if(isset($_GET['login_name'])){
+			
 			$ppid = $_GET['login_name'];
 			$sqlLoader="Select from system.users where login_name=?";
 			$resLoader=$db->prepare($sqlLoader);
 			$resLoader->execute(array($ppid));		
+
 			while($rowLoader = $resLoader->fetch(PDO::FETCH_ASSOC)){
+
 				$login_name=$rowLoader['login_name'];
 				$password=$rowLoader['password'];
 				$first_name=$rowLoader['first_name'];	
 				$last_name=$rowLoader['last_name'];
 				$email=$rowLoader['email'];
 				$enabled=$rowLoader['enabled'];
-				$terminal=$rowLoader['terminal'];		
+				$terminal=$rowLoader['terminal'];	
+
 			}
 	} 
+
+	if (isset($_POST["frmSubmit"])) {
+
+			if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
+				echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
+				exit;
+			} 
+
+	    else {
+
+				try {
+
+					$login_name = $_POST["login_name"];
+					
+					$query = "UPDATE system.users SET password = :password, first_name = :first_name, last_name = :last_name, email = :email WHERE login_name = :login_name";
+
+					$STH = $db->prepare($query); 
+
+					$STH->execute(array('password' => $_POST['password'], 'first_name' => $_POST['first_name'], 'last_name' => $_POST['last_name'], ':email' => $_POST['email'], ':login_name' => $login_name));
+
+				} 
+	        catch (PDOException $e) {
+					  echo $e->getMessage();
+				  }
+				     echo "<script language='javascript' type='text/javascript'>alert('Successfully Saved!')</script>";
+				     echo "<script language='javascript' type='text/javascript'>window.open('index.php','_self')</script>";
+			}
+	}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -61,38 +93,6 @@ session_start();
 	</style>
 	<script src="js/jquery.dataTables.js"></script>
 	<script src="assets/js/users.js"></script>
-
-<?php
-
-if (isset($_POST["frmSubmit"])) {
-
-		if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
-			echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
-			exit;
-		} 
-
-    else {
-
-			try {
-
-				$login_name = $_POST["login_name"];
-				
-				$query = "UPDATE system.users SET password = :password, first_name = :first_name, last_name = :last_name, email = :email WHERE login_name = :login_name";
-
-				$STH = $db->prepare($query); 
-
-				$STH->execute(array('password' => $_POST['password'], 'first_name' => $_POST['first_name'], 'last_name' => $_POST['last_name'], ':email' => $_POST['email'], ':login_name' => $login_name));
-
-			} 
-        catch (PDOException $e) {
-				  echo $e->getMessage();
-			  }
-			     echo "<script language='javascript' type='text/javascript'>alert('Successfully Saved!')</script>";
-			     echo "<script language='javascript' type='text/javascript'>window.open('index.php','_self')</script>";
-		}
-}
-
-?>
 <body>
 
 	<div id="wrapper">

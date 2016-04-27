@@ -46,7 +46,7 @@ $(document).ready(function() {
 			});
 			$('#add_button').click(function(){
 					
-				var params = { "hotel_code": $('#hotel_code').val(), "hotel": $('#hotel').val(), "status": $('#status').val(), "chain_code": $('#chain_code').val()}
+				var params = {"hotel_code": $('#hotel_code').val(), "hotel": $('#hotel').val(), "status": $('#status').val(), "chain_code": $('#chain_code').val()}
 				$.ajax({
 					method: "POST",
 					url: "add_file.php",

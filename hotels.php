@@ -151,7 +151,7 @@ if (isset($_POST["frmSubmit"])) {
 
 				<div id="modal" class="modal-box">
 
-				  <header> <a href="hotels.php" class="js-modal-close close">×</a>
+				  <header> <a href="hotels.php?sidebar=hotels" class="js-modal-close close">×</a>
 					<h3 id="ed">EDIT</h3>
 					<h3 id="ad">ADD</h3>
 				  </header>
@@ -167,7 +167,7 @@ if (isset($_POST["frmSubmit"])) {
 					   <input type="button" id="add_button" name="frmSubmit" value="Do-It">
 					   <input type="button" id="edit_button" name="frmSubmit" value="Do-It">
 					
-					   <footer> <a href="hotels.php" class="btn btn-small js-modal-close">Close</a> </footer>
+					   <footer> <a href="hotels.php?sidebar=hotels" class="btn btn-small js-modal-close">Close</a> </footer>
 				   </form>
 				  </div>
 				</div>
