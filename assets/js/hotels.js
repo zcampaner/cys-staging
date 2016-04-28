@@ -31,7 +31,7 @@ $(document).ready(function() {
 				var params = { "hotel_code": $('#hotel_code').val(), "hotel": $('#hotel').val(), "status": $('#status').val(), "chain_code": $('#chain_code').val() }
 				$.ajax({
 					method: "POST",
-					url: "edit_file.php",
+					url: "edit_hotels_file.php",
 					data: params					
 				})
 				.done(function( msg ) {
@@ -49,7 +49,7 @@ $(document).ready(function() {
 				var params = { "hotel_code": $('#hotel_code').val(), "hotel": $('#hotel').val(), "status": $('#status').val(), "chain_code": $('#chain_code').val() }
 				$.ajax({
 					method: "POST",
-					url: "add.php",
+					url: "add_hotels_file.php",
 					data: params					
 				})
 				.done(function( msg ) {
