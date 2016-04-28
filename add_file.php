@@ -7,7 +7,9 @@ if (isset($_POST["login_name"])) {
         if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
             echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
             exit;
-        } else {
+        } 
+
+        else {
 
             try {        
 
@@ -21,9 +23,11 @@ if (isset($_POST["login_name"])) {
 
                 $stmt->execute();
                 echo $stmt->rowCount();
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
+            } 
+
+                catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
 
         }
 }
@@ -33,7 +37,9 @@ if (isset($_POST["chain_code"])) {
         if (!$_POST['chain_code'] || !$_POST['chain'] || !$_POST['description']) {
             echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
             exit;
-        } else {
+        } 
+
+        else {
 
             try {        
 
@@ -45,9 +51,11 @@ if (isset($_POST["chain_code"])) {
 
                 $stmt->execute();
                 echo $stmt->rowCount();
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
+            } 
+
+                catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
 
         }
 }
@@ -56,7 +64,9 @@ if (isset($_POST["hotel_code"])) {
         if (!$_POST['hotel_code'] || !$_POST['hotel'] || !$_POST['status'] || !$_POST['chain_code']) {
             echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
             exit;
-        } else {
+        } 
+
+        else {
 
             try {        
 
@@ -69,9 +79,11 @@ if (isset($_POST["hotel_code"])) {
 
                 $stmt->execute();
                 echo $stmt->rowCount();
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
+            } 
+
+                catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
 
         }
 }

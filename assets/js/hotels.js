@@ -19,16 +19,16 @@ $(document).ready(function() {
 				.done(function( msg ) {
 					console.log(msg[0]);
 					$("#hotel_code").val( msg[0].hotel_code );
-					$("#hotel").val( msg[0].hotel);
+					$("#hotel").val( msg[0].hotel );
 					$("#status").val( msg[0].status );
-					$("#chain_code").val( msg[0].chain_code);
+					$("#chain_code").val( msg[0].chain_code );
 				});
 				$("#modal").show();
 				$("#add_button").hide();
 			  	$("#ad").hide();
 			});
 			$('#edit_button').click(function(){
-				var params = { "hotel_code": $('#hotel_code').val(), "hotel": $('#hotel').val(), "status": $('#status').val(), "chain_code": $('#chain_code').val()}
+				var params = { "hotel_code": $('#hotel_code').val(), "hotel": $('#hotel').val(), "status": $('#status').val(), "chain_code": $('#chain_code').val() }
 				$.ajax({
 					method: "POST",
 					url: "edit_file.php",
@@ -46,10 +46,10 @@ $(document).ready(function() {
 			});
 			$('#add_button').click(function(){
 					
-				var params = {"hotel_code": $('#hotel_code').val(), "hotel": $('#hotel').val(), "status": $('#status').val(), "chain_code": $('#chain_code').val()}
+				var params = { "hotel_code": $('#hotel_code').val(), "hotel": $('#hotel').val(), "status": $('#status').val(), "chain_code": $('#chain_code').val() }
 				$.ajax({
 					method: "POST",
-					url: "add_file.php",
+					url: "add.php",
 					data: params					
 				})
 				.done(function( msg ) {
@@ -80,5 +80,4 @@ $(document).ready(function() {
 				
 			})
 		});
-
 

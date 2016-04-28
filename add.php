@@ -1,42 +1,33 @@
 <?php
-# pdo options/attributes
-    $opt = array( PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION );
-    # data source name
-	include("dbconnection.php");
 
-if (isset($_POST["frmSubmit"])) {
+include ("dbconnection.php");
 
-        if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
+if (isset($_POST["hotel_code"])) {
+        if (!$_POST['hotel_code'] || !$_POST['hotel'] || !$_POST['status'] || !$_POST['chain_code']) {
             echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
             exit;
-        } else {
+        } 
+
+        else {
 
             try {        
-            	$password = md5($_POST['password']);
-                $db = new PDO($dsn, $user, $pass, $opt);
-                $stmt = $db->prepare("INSERT INTO system.users (login_name,password,first_name,last_name,email,enabled,internal) VALUES (:login_name,:password,:first_name,:last_name,:email,'Yes','Yes')");
 
-<<<<<<< HEAD
-                $STH->bindParam(':login_name', $_POST['login_name']);
-                $STH->bindParam(':first_name', $_POST['first_name']);
-                $STH->bindParam(':last_name', $_POST['last_name']);
-                $STH->bindParam(':password', $password);
-                $STH->bindParam(':email', $_POST['email']);
-=======
-                $stmt->bindParam(':login_name', $_POST['login_name']);
-                $stmt->bindParam(':first_name', $_POST['first_name']);
-                $stmt->bindParam(':last_name', $_POST['last_name']);
-                $stmt->bindParam(':password', $_POST['password']);
-                $stmt->bindParam(':email', $_POST['email']);
->>>>>>> 180738ba41c17f445d03e663342de4407f7b0287
+                $stmt = $db->prepare("INSERT INTO system.hotels (hotel_code,hotel,status,chain_code) VALUES (:hotel_code,:hotel,:status,:chain_code)");
+
+                $stmt->bindParam(':hotel_code', $_POST['hotel_code']);
+                $stmt->bindParam(':hotel', $_POST['hotel']);
+                $stmt->bindParam(':status', $_POST['status']);
+                $stmt->bindParam(':chain_code', $_POST['chain_code']);
 
                 $stmt->execute();
+                echo $stmt->rowCount();
+            } 
 
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
+                catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
 
         }
 }
 
-    $db = null;
+$db = null;

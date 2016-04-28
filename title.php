@@ -8,6 +8,6 @@
 	} 
 	// $sTitle = "Hello World";
 ?>
-<title><?php echo $sTitle;?>- Central Yield System Database</title>
+<title><?php echo $sTitle;?> - Central Yield System Database</title>
 
 <!-- <title>Default- Central Yield System Database</title> -->

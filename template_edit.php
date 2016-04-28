@@ -24,15 +24,17 @@ if(isset($_POST['chain_code'])){
 
 	echo json_encode($result);
 }
+
 if(isset($_POST['hotel_code'])){
 
     $ppid = $_POST['hotel_code'];
     
-    $sqladd="SELECT hotel_code,hotel,status,chain_code FROM system.hotels WHERE hotel_code='$ppid'";
+    $sqladd="SELECT * FROM system.hotels WHERE hotel_code='$ppid'";
     $res=$db->prepare($sqladd);
     $res->execute();
     $result = $res->fetchALL(PDO::FETCH_ASSOC); 
 
     echo json_encode($result);
 }
+
 ?>

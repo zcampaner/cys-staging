@@ -1,18 +1,30 @@
 <?php
-	include ("dbconnection.php");
+
+include ("dbconnection.php");
+
     $login_name=$_POST['login_name'];
     $sql = "DELETE FROM system.users WHERE login_name =  :login_name";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':login_name', $_POST['login_name']);
     $stmt->execute();
 
-	echo $stmt->rowCount();
+    	echo $stmt->rowCount();
 
-	$chain_code=$_POST['chain_code'];
-	$sql = "DELETE FROM system.hotel_chains WHERE chain_code =  :chain_code";
-	$stmt = $db->prepare($sql);
-	$stmt->bindParam(':chain_code', $_POST['chain_code']);
-	$stmt->execute();
+    $chain_code=$_POST['chain_code'];
+    $sql = "DELETE FROM system.hotel_chains WHERE chain_code =  :chain_code";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':chain_code', $_POST['chain_code']);
+    $stmt->execute();
 
-	echo $stmt->rowCount();
+    	echo $stmt->rowCount();
+
+    $hotel_code=$_POST['hotel_code'];
+    $sql = "DELETE FROM system.hotels WHERE hotel_code =  :hotel_code";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':hotel_code', $_POST['hotel_code']);
+    $stmt->execute();
+
+    	echo $stmt->rowCount();
+
 ?>
+
