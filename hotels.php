@@ -55,11 +55,7 @@ session_start();
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link href="css/vendor/bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="css/vendor/font-awesome.min.css" type="text/css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-    <link href="css/jquery.bdt.css" type="text/css" rel="stylesheet">
-    <link href="css/style.css" type="text/css" rel="stylesheet">
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -303,8 +299,8 @@ session_start();
 	<script src="js/plugins/morris/raphael.min.js"></script>
 	<script src="js/plugins/morris/morris.min.js"></script>
 	<script src="js/plugins/morris/morris-data.js"></script>
-<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<script src="js/vendor/bootstrap.min.js" type="text/javascript"></script>
+	
+<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>	
 <script src="js/vendor/jquery.sortelements.js" type="text/javascript"></script>
 <script src="js/jquery.bdt.js" type="text/javascript"></script>
 <script>
@@ -314,6 +310,5 @@ session_start();
 </script>
 </body>
 </html>
-
 
 
