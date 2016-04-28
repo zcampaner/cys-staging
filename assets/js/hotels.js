@@ -53,9 +53,8 @@ $(document).ready(function() {
 					data: params					
 				})
 				.done(function( msg ) {
-					console.log(msg);
 					alert('New record added');
-					// location.reload();
+					location.reload();
 				});
 			});	
 			$('.delete').click(function(){
