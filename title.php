@@ -3,6 +3,9 @@
 	if ($_GET["sidebar"]==='users'){
 		$sTitle = 'Users';
 	}
+	if ($_GET["sidebar"]==='hotel_chains'){
+		$sTitle = 'Hotel Chains';
+	} 
 	if ($_GET["sidebar"]==='hotels'){
 		$sTitle = 'Hotels';
 	} 

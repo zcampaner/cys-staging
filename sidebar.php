@@ -124,7 +124,7 @@
                                 <a href="users.php?sidebar=users">Users</a>
                             </li>
                             <li>
-                                <a href="hotel_chains.php">Hotel Chains</a>
+                                <a href="hotel_chains.php?sidebar=hotel_chains">Hotel Chains</a>
                             </li>
                             <li>
                                 <a href="hotels.php?sidebar=hotels">Hotels</a>
