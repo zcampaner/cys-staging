@@ -1,37 +1,78 @@
 <?php
 
-header('Content-type: text/xml');
-date_default_timezone_set('Asia/Manila');
+// header('Content-type: text/xml');
+// date_default_timezone_set('Asia/Manila');
 
 try {
  
-  $dbname = DWH_DATABASE_DWHDB_NAME;
-  $host = DWH_DATABASE_DWHDB_HOST;
-  $user = DWH_DATABASE_DWHDB_USER;
-  $pass = DWH_DATABASE_DWHDB_PASSWORD;
+  // $dbname = DWH_DATABASE_DWHDB_NAME;
+  // $host = DWH_DATABASE_DWHDB_HOST;
+  // $user = DWH_DATABASE_DWHDB_USER;
+  // $pass = DWH_DATABASE_DWHDB_PASSWORD;
+
+  $dbname = 'dev_dwhdb';
+  $host = '10.1.2.222';
+  $user = 'guest';
+  $pass = 'pass';
   $driver = 'pgsql';
 
-  $startDate = isset($_GET['start_date']) ? $_GET['start_date'] :(string) date('Y-m-d');
-  $endDate = isset($_GET['end_date']) ? $_GET['end_date'] :(string) date('Y-m-d');
+  // $startDate = isset($_GET['start_date']) ? $_GET['start_date'] :(string) date('Y-m-d');
+  // $endDate = isset($_GET['end_date']) ? $_GET['end_date'] :(string) date('Y-m-d');
+  // $status = isset($_GET['status']) ? $_GET['status'] : (string) '';
+
+
+  $startDate = '2016-01-01';
+  $endDate = '2016-02-28';
+  $status = 5;
+  switch($status) {
+  case 5:
+    echo 'No Show Reported.';
+    break;
+  case 6:
+    echo 'No Show In-Progress.';
+    break;
+  case 7:
+    echo 'No Show Charged';
+    break;
+  case 8:
+    echo 'No Show Invalid';
+    break;
+   case 9:
+    echo 'No Show Failed Charge';
+    break;
+   case 10:
+    echo 'No Show Waived';
+    break;
+   case 15:
+    echo 'No Show Hotel Processed';
+    break;
+}
+  $where = "WHERE t1.created_date::DATE BETWEEN :start_date AND :end_date AND t1.status_name = $status";
+  $sorting= "ORDER BY t1.id DESC";
 
   $db = new PDO("$driver:dbname=$dbname;host=$host;user=$user;password=$pass;");
 
   $stmt = $db->prepare(
-     'SELECT *, AVG(t2.base_rate_total) OVER (PARTITION BY t1.id ORDER BY t1.id DESC) AS average_room_rate 
+     "SELECT *, AVG(t2.base_rate_total) OVER (PARTITION BY t1.id ORDER BY t1.id DESC) AS average_room_rate 
       FROM gi.t_reservations t1
       INNER JOIN gi.t_reservation_details t2 ON t1.id = t2.reservation_id 
-      WHERE t1.created_date::DATE BETWEEN :start_date AND :end_date
-      ORDER BY t1.id DESC'
+      $where
+      $sorting"
   );
 
   $stmt->bindParam(':start_date', $startDate);
   $stmt->bindParam(':end_date', $endDate);
- 
+  $stmt->bindParam(':status', $status);
+
   $stmt->execute();
   
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
-  $xmlObj = simplexml_load_string('<ReservationsSummaryReport></ReservationsSummaryReport>');
+  echo"<pre>";
+  var_dump($result);echo"</pre>";
+
+
+exit;
+    $xmlObj = simplexml_load_string('<ReservationsSummaryReport></ReservationsSummaryReport>');
   
   if (count($result)) {
 
