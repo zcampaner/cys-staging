@@ -138,7 +138,7 @@ try {
         $los = $check_out_date->diff($check_in_date)->days;
         
         $reservation->addChild('LengthOfStay', $los);
-        
+        $name = $row['first_name'].$row['last_name'];
         $ratePlan = $reservation->addChild('RatePlan', $row['rate_plan_name']);
         $roomTypes = $reservation->addChild('RoomTypes');
         $roomTypes->addChild('RoomType', $row['room_name']);
@@ -149,8 +149,8 @@ try {
         $reservation->addChild('NetRevenue', $row['total_amount'] - $row['dwh_revenue']);
         $reservation->addChild('AverageBookingWindow', $average_booking_window);
         $reservation-> addChild('Status', $row['group_id']);
-        $reservation-> addChild('FirstName', $row['first_name']);
-        $reservation-> addChild('LastName',$row['last_name']);
+        // $reservation-> addChild('FirstName', $row['first_name']);
+        $reservation-> addChild('Name',$name);
 
       } else {
 
