@@ -92,8 +92,6 @@ try {
 
   	}
 
-  	echo $xmlObj->asXML();
-
 } catch(Exception $e) {
  
  	http_response_code(500);
@@ -103,5 +101,5 @@ try {
 
 
 
-?>
 
+?>
