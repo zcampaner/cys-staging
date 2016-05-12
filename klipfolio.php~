@@ -5,7 +5,6 @@ date_default_timezone_set('Asia/Manila');
 
 try {
  error_reporting(E_ALL);
-
   	$dbname = 'dev_dwhdb';
   	$host = '10.1.2.222';
   	$user = 'guest';
@@ -27,10 +26,10 @@ try {
 			t2.room_name,
 			t1.check_in_date,
 			t1.check_out_date, 
-			t1.total_amount,
+			t1.total_amount, 
 			t1.created_date,
 			t1.dwh_revenue,
-			t1.total_amount,
+			t1.total_amount, 
 			t3.group_id,
 			t1.property_id, 
 			t2.no_of_rooms,
@@ -73,10 +72,7 @@ try {
 				$name = $row['first_name'].' '.$row['last_name'];
 				$ratePlan = $reservation->addChild('RatePlan', $row['rate_plan_name']);
 				$roomTypes = $reservation->addChild('RoomTypes');
-				$Roomtype = $roomTypes->addChild('RoomType', $row['room_name']);
-				$Roomtype->addAttribute('ID', $row['id']);
-				$Roomtype->addAttribute('NoOfRooms', $row['no_of_rooms']);
-				$Roomtype->addAttribute('BaseRate', $row['base_rate']);
+				$roomTypes->addChild('RoomType', $row['room_name']);
 				$reservation->addChild('GrossRevenue', $row['total_amount']);
 				$reservation->addChild('ReservationDate',date('Y-m-d H:i A',strtotime($row['created_date'])));
 				$reservation->addChild('AverageRoomRate', $row['average_room_rate']);
@@ -92,17 +88,14 @@ try {
 
 			} else {
 
-				$Roomtype = $roomTypes->addChild('RoomType', $row['room_name']);
-				$Roomtype->addAttribute('ID', $row['id']);
-				$Roomtype->addAttribute('NoOfRooms', $row['no_of_rooms']);
-				$Roomtype->addAttribute('BaseRate', $row['base_rate']);
+				$roomTypes->addChild('RoomType', $row['room_name']);
 
 			}
 
 		}
 
   	}
-	echo $xmlObj->asXML();
+
 } catch(Exception $e) {
  var_export($e);
  	// http_response_code(500);

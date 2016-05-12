@@ -1,0 +1,31 @@
+<html>
+<ReservationsSummaryReport>
+    <Reservation>
+        <LengthOfStay>3</LengthOfStay>
+        <RatePlan>Nightly</RatePlan>
+                <RoomTypes>
+                    <RoomType>Standard</RoomType>
+                    <RoomType>Deluxe</RoomType>
+                </RoomTypes>
+        <GrossRevenue>250.75</GrossRevenue>
+        <AverageRoomRate>22.50</AverageRoomRate>
+        <DWHCommission>25.00</DWHCommission>
+        <NetRevenue>225.75</NetRevenue>
+        <AverageBookingWindow>18</AverageBookingWindow>
+    </Reservation>
+    
+    <Reservation>
+        <LengthOfStay>2</LengthOfStay>
+        <RatePlan>Nightly</RatePlan>
+                <RoomTypes>
+                    <RoomType>Suite</RoomType>
+                </RoomTypes>
+        <GrossRevenue>250.75</GrossRevenue>
+        <AverageRoomRate>22.50</AverageRoomRate>
+        <DWHCommission>25.00</DWHCommission>
+        <NetRevenue>225.75</NetRevenue>
+        <AverageBookingWindow>18</AverageBookingWindow>
+    </Reservation>
+<ReservationsSummaryReport>
+
+</html>

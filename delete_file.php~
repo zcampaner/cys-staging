@@ -1,0 +1,26 @@
+<?php
+	include ("dbconnection.php");
+    $login_name=$_POST['login_name'];
+    $sql = "DELETE FROM system.users WHERE login_name =  :login_name";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':login_name', $_POST['login_name']);
+    $stmt->execute();
+
+	echo $stmt->rowCount();
+
+	$chain_code=$_POST['chain_code'];
+	$sql = "DELETE FROM system.hotel_chains WHERE chain_code =  :chain_code";
+	$stmt = $db->prepare($sql);
+	$stmt->bindParam(':chain_code', $_POST['chain_code']);
+	$stmt->execute();
+
+	echo $stmt->rowCount();
+	
+	$bank_code=$_POST['bank_code'];
+	$sql = "DELETE FROM system.bank_branch WHERE bank_code =  :bank_code";
+	$stmt = $db->prepare($sql);
+	$stmt->bindParam(':bank_code', $_POST['bank_code']);
+	$stmt->execute();
+
+	echo $stmt->rowCount();
+?>

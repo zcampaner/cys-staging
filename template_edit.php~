@@ -1,0 +1,49 @@
+<?php
+include("dbconnection.php");
+
+if(isset($_POST['login_name'])){
+
+    $ppid = $_POST['login_name'];
+
+    $sqladd="SELECT login_name,first_name,last_name,email FROM system.users WHERE login_name='$ppid'";
+    $res=$db->prepare($sqladd);
+    $res->execute();
+    $result = $res->fetchALL(PDO::FETCH_ASSOC); 
+
+    echo json_encode($result);
+}
+
+if(isset($_POST['chain_code'])){
+
+    $ppid = $_POST['chain_code'];
+
+    $sqladd="SELECT chain_code,chain,description FROM system.hotel_chains WHERE chain_code='$ppid'";
+	$res=$db->prepare($sqladd);
+	$res->execute();
+	$result = $res->fetchALL(PDO::FETCH_ASSOC);	
+
+	echo json_encode($result);
+}
+if(isset($_POST['hotel_code'])){
+
+    $ppid = $_POST['hotel_code'];
+    
+    $sqladd="SELECT hotel_code,hotel,status,chain_code FROM system.hotels WHERE hotel_code='$ppid'";
+    $res=$db->prepare($sqladd);
+    $res->execute();
+    $result = $res->fetchALL(PDO::FETCH_ASSOC); 
+
+    echo json_encode($result);
+}
+if(isset($_POST['bank_code'])){
+
+    $ppid = $_POST['bank_code'];
+    
+    $sqladd="SELECT bank_code,branch_code,branch,currency_code,routing_number,swift_local,swift_foreign,building,street,city,province,country_code,zip FROM system.bank_branches WHERE bank_code='$ppid'";
+    $res=$db->prepare($sqladd);
+    $res->execute();
+    $result = $res->fetchALL(PDO::FETCH_ASSOC); 
+
+    echo json_encode($result);
+}
+?>

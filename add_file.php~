@@ -1,0 +1,111 @@
+<?php
+
+	include("dbconnection.php");
+
+if (isset($_POST["login_name"])) {
+
+        if (!$_POST['login_name'] || !$_POST['first_name'] || !$_POST['last_name'] || !$_POST['email']) {
+            echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
+            exit;
+        } else {
+
+            try {        
+
+                $stmt = $db->prepare("INSERT INTO system.users (login_name,password,first_name,last_name,email,enabled,internal) VALUES (:login_name,:password,:first_name,:last_name,:email,'Yes','Yes')");
+
+                $stmt->bindParam(':login_name', $_POST['login_name']);
+                $stmt->bindParam(':first_name', $_POST['first_name']);
+                $stmt->bindParam(':last_name', $_POST['last_name']);
+                $stmt->bindParam(':password', md5($_POST['password']));
+                $stmt->bindParam(':email', $_POST['email']);
+
+                $stmt->execute();
+                echo $stmt->rowCount();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+
+        }
+}
+
+if (isset($_POST["chain_code"])) {
+
+        if (!$_POST['chain_code'] || !$_POST['chain'] || !$_POST['description']) {
+            echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
+            exit;
+        } else {
+
+            try {        
+
+                $stmt = $db->prepare("INSERT INTO system.hotel_chains (chain_code,chain,description,enabled) VALUES (:chain_code,:chain,:description,'Yes')");
+
+                $stmt->bindParam(':chain_code', $_POST['chain_code']);
+                $stmt->bindParam(':chain', $_POST['chain']);
+                $stmt->bindParam(':description', $_POST['description']);
+
+                $stmt->execute();
+                echo $stmt->rowCount();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+
+        }
+}
+
+if (isset($_POST["hotel_code"])) {
+        if (!$_POST['hotel_code'] || !$_POST['hotel'] || !$_POST['status'] || !$_POST['chain_code']) {
+            echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
+            exit;
+        } else {
+
+            try {        
+
+                $stmt = $db->prepare("INSERT INTO system.hotels (hotel_code,hotel,status,chain_code) VALUES (:hotel_code,:hotel,:status,:chain_code)");
+
+                $stmt->bindParam(':hotel_code', $_POST['hotel_code']);
+                $stmt->bindParam(':hotel', $_POST['hotel']);
+                $stmt->bindParam(':status', $_POST['status']);
+                $stmt->bindParam(':chain_code', $_POST['chain_code']);
+
+                $stmt->execute();
+                echo $stmt->rowCount();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+
+        }
+}
+
+if (isset($_POST["bank_code"])) {
+        if (!$_POST['bank_code'] || !$_POST['branch_code'] || !$_POST['branch'] || !$_POST['currency_code']) {
+            echo "<p>Please supply all of the data! You may press your back button to attempt again minion!</p>";
+            exit;
+        } else {
+
+            try {        
+
+                $stmt = $db->prepare("INSERT INTO system.bank_branches (bank_code,branch_code,branch,currency_code,routing_number,swift_local,swift_foreign,building,street,city,province,country_code,zip) VALUES (:bank_code,:branch_code,:branch,:currency_code,:routing_number,:swift_local,:swift_foreign,:building,:street,:city,:province,:country_code,:zip)");
+
+                $stmt->bindParam(':bank_code', $_POST['bank_code']);
+                $stmt->bindParam(':branch_code', $_POST['branch_code']);
+                $stmt->bindParam(':branch', $_POST['branch']);
+                $stmt->bindParam(':currency_code', $_POST['currency_code']);
+		$stmt->bindParam(':routing_number', $_POST['routing_number']);
+		$stmt->bindParam(':swift_local', $_POST['swift_local']);
+		$stmt->bindParam(':swift_foreign', $_POST['swift_foreign']);
+		$stmt->bindParam(':building', $_POST['building']);
+		$stmt->bindParam(':street', $_POST['street']);
+		$stmt->bindParam(':city', $_POST['city']);
+		$stmt->bindParam(':province', $_POST['province']);
+		$stmt->bindParam(':country_code', $_POST['country_code']);
+		$stmt->bindParam(':zip', $_POST['zip']);
+		                
+                $stmt->execute();
+                echo $stmt->rowCount();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+
+        }
+}
+    $db = null;
