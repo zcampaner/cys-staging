@@ -1,14 +1,14 @@
 <?php
 
-header('Content-type: text/xml');
+ // header('Content-type: text/xml');
 date_default_timezone_set('Asia/Manila');
 
 try {
  
-  	$dbname = ;
-  	$host = ;
-  	$user = ;
-  	$pass = ;
+  	$dbname = 'dev_dwhdb';
+  	$host = '10.1.2.222';
+  	$user = 'guest';
+  	$pass = 'pass';
 
   	$driver = 'pgsql';
 
@@ -16,7 +16,7 @@ try {
   	$endDate = isset($_GET['end_date']) ? $_GET['end_date'] :(string) date('Y-m-d');
 
   	$db = new PDO("$driver:dbname=$dbname;host=$host;user=$user;password=$pass;");
- 
+ 	// var_export($db);die;
 	$stmt = $db->prepare(
 		"SELECT 
 			t1.id,
@@ -33,6 +33,9 @@ try {
 			t3.group_id,
 			t1.property_id, 
 			t2.no_of_rooms,
+			t1.no_of_nights,
+			t1.total_no_of_rooms,
+			t2.base_rate,
 			AVG(t2.base_rate_total) OVER (PARTITION BY t1.id ORDER BY t1.id DESC) AS average_room_rate 
 	 	FROM gi.t_reservations t1
 	  	INNER JOIN gi.m_status_type t3 ON t1.status_id = t3.id 
@@ -43,10 +46,9 @@ try {
 
 	$stmt->bindParam(':start_date', $startDate);
 	$stmt->bindParam(':end_date', $endDate);
-
 	$stmt->execute();
 	
-	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);var_dump($result);die;
 	$xmlObj = simplexml_load_string('<ReservationsSummaryReport></ReservationsSummaryReport>');
 	
 	if (count($result)) {
@@ -66,7 +68,7 @@ try {
 
 				$los = $check_out_date->diff($check_in_date)->days;
 				
-				$reservation->addChild('LengthOfStay', $los);
+				$reservation->addChild('LengthOfStay', $row['no_of_nights']);
 				$name = $row['first_name'].' '.$row['last_name'];
 				$ratePlan = $reservation->addChild('RatePlan', $row['rate_plan_name']);
 				$roomTypes = $reservation->addChild('RoomTypes');
@@ -75,12 +77,14 @@ try {
 				$reservation->addChild('ReservationDate',date('Y-m-d H:i A',strtotime($row['created_date'])));
 				$reservation->addChild('AverageRoomRate', $row['average_room_rate']);
 				$reservation->addChild('DWHCommission', $row['dwh_revenue']);
-				$reservation->addChild('NetRevenue', $row['total_amount'] - $row['dwh_revenue']);
+				$reservation->addChild('NetRevenue', $row['total_amount'] - $row['dwh_revenue'],'This is a fuckin');
 				$reservation->addChild('AverageBookingWindow', $average_booking_window);
 				$reservation->addChild('Status', $row['group_id']);
 				$reservation->addChild('Name', $name);
 				$reservation->addChild('HotelID', $row['property_id']); 
-				$reservation->addChild('NoOfRooms', $row['no_of_rooms']);  
+				$reservation->addChild('TotalNoOfRooms', $row['total_no_of_rooms']);
+				$reservation->addChild('BaseRatePlan', $row['total_base_rate']);
+
 
 			} else {
 
@@ -93,8 +97,8 @@ try {
   	}
 
 } catch(Exception $e) {
- 
- 	http_response_code(500);
+ var_export($e);
+ 	// http_response_code(500);
 
 }
 
